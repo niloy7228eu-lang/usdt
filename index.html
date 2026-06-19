@@ -76,6 +76,7 @@
     </div>
 
     <div id="page-home" class="page active-page">
+        <!-- REALTIME LEDGER ALERT BOX -->
         <div id="live-alert" class="hidden bg-emerald-950/40 border border-emerald-500/20 p-3 rounded-xl mb-4 flex items-center gap-3 transition-all">
             <div class="bg-emerald-500 text-black rounded-full p-1.5 text-xs animate-pulse">
                 <i class="fa-solid fa-bolt"></i>
@@ -168,7 +169,7 @@
                 <i class="fa-solid fa-users-gear"></i>
             </div>
             <h3 class="font-bold text-base mb-1 text-gray-200">Network Referral System</h3>
-            <p class="text-xs text-gray-400 mb-4">Earn <span class="text-green-400 font-bold">$1.00</span> per user node invite.</p>
+            <p class="text-xs text-gray-400 mb-4">Earn <span class="text-green-400 font-bold">$1.00</span> per user invite.</p>
             <div class="flex gap-2 bg-black/30 p-1.5 rounded-xl border border-gray-800">
                 <input type="text" id="refer-link" readonly class="bg-transparent px-2 text-xs flex-1 text-gray-400 focus:outline-none truncate">
                 <button onclick="copyReferLink()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Copy Link</button>
@@ -176,18 +177,18 @@
         </div>
         <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">My Affiliates (<span id="refer-count">0</span>)</h3>
         <div id="refer-history-list" class="space-y-2">
-            <p class="text-xs text-gray-500 text-center py-6">No active node assets connected yet.</p>
+            <p class="text-xs text-gray-500 text-center py-6">No active assets connected yet.</p>
         </div>
     </div>
 
     <div id="page-withdraw" class="page">
         <div class="glass-card p-5 rounded-2xl mb-6 border border-emerald-500/5">
-            <h3 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer text-emerald-500"></i> Secured Node Withdrawal</h3>
+            <h3 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer text-emerald-500"></i> Secured Cashout</h3>
             <div class="space-y-3">
                 <div>
                     <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Select Crypto Asset</label>
                     <select id="withdraw-gateway" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
-                        <option value="USDT-TRC20">USDT (TRC20 Node)</option>
+                        <option value="USDT-TRC20">USDT (TRC20 Mainnet)</option>
                         <option value="USDT-BEP20">USDT (BEP20 Smart Chain)</option>
                         <option value="SOL">Solana Native (SOL)</option>
                     </select>
@@ -252,6 +253,8 @@
         let username = tg.initDataUnsafe?.user?.username || "CryptoTrader";
         let userPhoto = tg.initDataUnsafe?.user?.photo_url || `https://ui-avatars.com/api/?name=${username}&background=random`;
 
+        let referrerId = tg.initDataUnsafe?.start_param || null;
+
         // App States
         let currentBalance = 0.00; 
         let totalRefers = 0; 
@@ -270,9 +273,47 @@
             startRealtimeWithdrawAlerts();
         };
 
-        // Firebase Sync
+        // Firebase Sync & Live Refer Engine
         function loadUserData() {
             const userRef = database.ref('users/' + userId);
+            
+            userRef.once('value', (snapshot) => {
+                const data = snapshot.val();
+                if(!data) {
+                    let signupBonus = 0.50; 
+                    userRef.set({
+                        username: username,
+                        balance: signupBonus,
+                        refersCount: 0,
+                        telegramTaskCompleted: false,
+                        slot1_remaining: 10,
+                        slot2_remaining: 10,
+                        referredBy: referrerId ? referrerId : "none"
+                    }).then(() => {
+                        if(referrerId && referrerId !== userId.toString()) {
+                            const referrerRef = database.ref('users/' + referrerId);
+                            referrerRef.once('value', (refSnapshot) => {
+                                if(refSnapshot.exists()) {
+                                    let refData = refSnapshot.val();
+                                    let oldBalance = refData.balance || 0;
+                                    let oldRefers = refData.refersCount || 0;
+                                    
+                                    referrerRef.update({
+                                        balance: oldBalance + 1.00,
+                                        refersCount: oldRefers + 1
+                                    });
+
+                                    database.ref('refers_history/' + referrerId).push({
+                                        username: username,
+                                        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
             userRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 if(data) {
@@ -281,21 +322,16 @@
                     isTgTaskClaimed = data.telegramTaskCompleted || false;
                     slot1_remaining = data.slot1_remaining !== undefined ? data.slot1_remaining : 10;
                     slot2_remaining = data.slot2_remaining !== undefined ? data.slot2_remaining : 10;
-                } else {
-                    userRef.set({
-                        username: username,
-                        balance: 0.00,
-                        refersCount: 0,
-                        telegramTaskCompleted: false,
-                        slot1_remaining: 10,
-                        slot2_remaining: 10
-                    });
+                    updateUI();
                 }
-                updateUI();
             });
 
             database.ref('withdrawals/' + userId).on('value', (snapshot) => {
                 renderWithdrawHistory(snapshot.val());
+            });
+
+            database.ref('refers_history/' + userId).on('value', (snapshot) => {
+                renderReferHistory(snapshot.val());
             });
         }
 
@@ -310,6 +346,31 @@
 
             updateCircleProgress('slot1', slot1_remaining);
             updateCircleProgress('slot2', slot2_remaining);
+        }
+
+        function renderReferHistory(data) {
+            const historyList = document.getElementById('refer-history-list');
+            if(!data) {
+                historyList.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">No active assets connected yet.</p>`;
+                return;
+            }
+            historyList.innerHTML = "";
+            Object.keys(data).reverse().forEach(key => {
+                const item = data[key];
+                const row = document.createElement('div');
+                row.className = "bg-slate-900/80 border border-gray-800 p-3 rounded-xl flex justify-between items-center text-xs";
+                row.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-user text-blue-400"></i>
+                        <span class="font-bold text-gray-200">@${item.username}</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-green-400 font-bold">+$1.00</span>
+                        <p class="text-[9px] text-gray-500">${item.date}</p>
+                    </div>
+                `;
+                historyList.appendChild(row);
+            });
         }
 
         function updateCircleProgress(slotId, remaining) {
@@ -398,11 +459,9 @@
             btn.disabled = true;
             btn.className = "mt-3 bg-gray-800 text-gray-500 font-bold text-xs py-2.5 px-4 rounded-xl cursor-not-allowed w-full";
 
-            // [CRITICAL FIX]: ক্লিকের সাথে সাথেই টাইমার স্ক্রিনে চলে আসবে 
             let timeLeft = 15;
             btn.innerText = `Securing Reward... ${timeLeft}s`;
 
-            // [CRITICAL FIX]: ক্লিকের সাথে সাথেই মনেট্যাগ স্ক্রিপ্ট কল হবে যাতে পপ-আপ ব্লক না হয়
             try {
                 if (typeof show_11172053 === 'function') {
                     show_11172053({ type: 'end' });
@@ -413,7 +472,6 @@
                 console.log("Monetag triggered natively."); 
             }
 
-            // ব্যাকগ্রাউন্ডে টাইমার রান হবে এবং টাইম শেষ হলে রিওয়ার্ড ক্রেডিট হবে
             let countdown = setInterval(() => {
                 timeLeft--;
                 btn.innerText = `Securing Reward... ${timeLeft}s`;
@@ -424,7 +482,6 @@
                     let newBalance = currentBalance + 0.30;
                     let newRemaining = remaining - 1;
 
-                    // ফায়ারবেস ডেটাবেস লাইভ সিঙ্ক ও আপডেট
                     const updates = {};
                     updates['users/' + userId + '/balance'] = newBalance;
                     updates['users/' + userId + '/' + slotId + '_remaining'] = newRemaining;
@@ -443,7 +500,7 @@
             }, 1000);
         }
 
-        // ================= WITHDRAW NODES =================
+        // ================= WITHDRAWALS =================
         function requestWithdraw() {
             const gateway = document.getElementById('withdraw-gateway').value;
             const walletAddress = document.getElementById('withdraw-address').value;
@@ -459,7 +516,6 @@
                 return;
             }
 
-            // সিকিউরিটি লেয়ার: ১৫ টি রেফার বাধ্যতামূলক
             if(totalRefers < 15) {
                 tg.HapticFeedback.notificationOccurred('error');
                 alert(`❌ Withdrawal Rejected! \n\nSecurity Audit Failed: Secure mainnet cashout requires a minimum of 15 active referrals to generate transaction authorization keys.\n\nYour Current Referrals: ${totalRefers}/15`);
@@ -523,22 +579,83 @@
             });
         }
 
+        // ================= 50 PRO LIVE WITHDRAWAL HISTORY SYSTEM =================
+        const liveWithdrawHistoryData = [
+            { user: "Alex_CryptoPro", amount: "45.50", asset: "USDT (TRC20)" },
+            { user: "Mim_USDT", amount: "12.80", asset: "USDT (BEP20)" },
+            { user: "Solana_King", amount: "88.00", asset: "Solana NATIVE" },
+            { user: "Sabbir_Fx", amount: "25.00", asset: "USDT (TRC20)" },
+            { user: "Crypto_Nova", amount: "115.35", asset: "USDT (BEP20)" },
+            { user: "Arif_Mine", amount: "33.20", asset: "Solana NATIVE" },
+            { user: "Zen_Trader", amount: "19.50", asset: "USDT (TRC20)" },
+            { user: "Nipa_Smart", amount: "74.10", asset: "USDT (BEP20)" },
+            { user: "Luna_Whale", amount: "150.00", asset: "Solana NATIVE" },
+            { user: "Rashed_X", amount: "55.00", asset: "USDT (TRC20)" },
+            { user: "Elena_Crypto", amount: "42.15", asset: "USDT (BEP20)" },
+            { user: "Tariq_USDT", amount: "61.90", asset: "USDT (TRC20)" },
+            { user: "Sol_Master", amount: "20.50", asset: "Solana NATIVE" },
+            { user: "Dev_Hasan", amount: "95.00", asset: "USDT (BEP20)" },
+            { user: "Fatima_Fx", amount: "14.30", asset: "USDT (TRC20)" },
+            { user: "Rayhan_Mine", amount: "112.00", asset: "Solana NATIVE" },
+            { user: "Ayesha_Traders", amount: "38.60", asset: "USDT (BEP20)" },
+            { user: "Crypto_Boss99", amount: "77.40", asset: "USDT (TRC20)" },
+            { user: "Tanvir_SOL", amount: "105.20", asset: "Solana NATIVE" },
+            { user: "Jessia_Earn", amount: "22.00", asset: "USDT (TRC20)" },
+            { user: "Mahdi_Crypto", amount: "67.80", asset: "USDT (BEP20)" },
+            { user: "Nusrat_Fx", amount: "89.50", asset: "USDT (TRC20)" },
+            { user: "Sol_Staker", amount: "135.00", asset: "Solana NATIVE" },
+            { user: "Imran_Miner", amount: "18.40", asset: "USDT (BEP20)" },
+            { user: "Tasnim_USDT", amount: "49.00", asset: "USDT (TRC20)" },
+            { user: "Apex_Whale", amount: "210.50", asset: "Solana NATIVE" },
+            { user: "Sakib_Pro", amount: "31.20", asset: "USDT (TRC20)" },
+            { user: "Mitu_Crypto", amount: "58.70", asset: "USDT (BEP20)" },
+            { user: "Emon_Assets", amount: "72.00", asset: "USDT (TRC20)" },
+            { user: "Solana_Guru", amount: "99.90", asset: "Solana NATIVE" },
+            { user: "Sonia_Earn", amount: "15.50", asset: "USDT (BEP20)" },
+            { user: "Rakib_Trader", amount: "83.40", asset: "USDT (TRC20)" },
+            { user: "Nayan_Fx", amount: "44.60", asset: "USDT (TRC20)" },
+            { user: "Crypto_Queen", amount: "128.00", asset: "Solana NATIVE" },
+            { user: "Anik_Mine", amount: "27.50", asset: "USDT (BEP20)" },
+            { user: "Farhana_USDT", amount: "64.20", asset: "USDT (TRC20)" },
+            { user: "Rony_SOL", amount: "118.00", asset: "Solana NATIVE" },
+            { user: "Keya_Crypto", amount: "36.90", asset: "USDT (BEP20)" },
+            { user: "Zahid_Assets", amount: "92.30", asset: "USDT (TRC20)" },
+            { user: "Habib_Fx", amount: "51.00", asset: "USDT (TRC20)" },
+            { user: "Sol_Hunter", amount: "145.60", asset: "Solana NATIVE" },
+            { user: "Lima_EarnPro", amount: "21.40", asset: "USDT (BEP20)" },
+            { user: "Jamil_Crypto", amount: "79.00", asset: "USDT (TRC20)" },
+            { user: "Sujon_Miner", amount: "41.80", asset: "USDT (BEP20)" },
+            { user: "Crypto_Pulse", amount: "160.00", asset: "Solana NATIVE" },
+            { user: "Bristy_USDT", amount: "34.50", asset: "USDT (TRC20)" },
+            { user: "Asif_Assets", amount: "87.20", asset: "USDT (TRC20)" },
+            { user: "Priya_Fx", amount: "53.10", asset: "USDT (BEP20)" },
+            { user: "Sol_Runner", amount: "102.50", asset: "Solana NATIVE" },
+            { user: "Tamim_Earn", amount: "66.00", asset: "USDT (TRC20)" }
+        ];
+
+        let currentAlertIndex = 0; 
+
         function startRealtimeWithdrawAlerts() {
-            const networkUsers = ['Arif_Crypto', 'Mim_USDT', 'Rashed_X', 'Nipa_Fx', 'Sol_Master', 'Dev_Hasan'];
-            const networks = ['USDT (TRC20)', 'USDT (BEP20)', 'Solana NATIVE'];
             setInterval(() => {
                 if (document.getElementById('page-home').classList.contains('active-page')) {
-                    const u = networkUsers[Math.floor(Math.random() * networkUsers.length)];
-                    const n = networks[Math.floor(Math.random() * networks.length)];
-                    const amt = (Math.random() * (40 - 5) + 5).toFixed(2);
+                    
+                    const data = liveWithdrawHistoryData[currentAlertIndex];
                     const alertBox = document.getElementById('live-alert');
+                    
                     if (alertBox) {
-                        document.getElementById('alert-text').innerHTML = `Network Alert: <b>@${u}</b> has extracted <b>$${amt}</b> via ${n} node successfully.`;
+                        document.getElementById('alert-text').innerHTML = `Mainnet Ledger Alert: <b>@${data.user}</b> successfully processed Withdrawal of <b>$${data.amount}</b> via ${data.asset}.`;
+                        
                         alertBox.classList.remove('hidden');
+                        
                         setTimeout(() => alertBox.classList.add('hidden'), 4500);
                     }
+
+                    currentAlertIndex++;
+                    if (currentAlertIndex >= liveWithdrawHistoryData.length) {
+                        currentAlertIndex = 0; 
+                    }
                 }
-            }, 10000);
+            }, 10000); 
         }
 
         function copyReferLink() {
