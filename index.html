@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDT Earn Pro - Instant Ad Timer Fixed</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <script src='//libtl.com/sdk.js' data-zone='11172053' data-sdk='show_11172053'></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <style>
+        body { 
+            background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
+            color: #ffffff; 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+        }
+        .page { display: none; }
+        .active-page { display: block; animation: smoothUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        @keyframes smoothUp { 
+            from { opacity: 0; transform: translateY(15px); filter: blur(4px); } 
+            to { opacity: 1; transform: translateY(0); filter: blur(0); } 
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .circle-slot {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(#10b981 0%, #1e293b 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+            transition: all 0.4s ease;
+        }
+        .circle-slot::before {
+            content: '';
+            position: absolute;
+            width: 124px;
+            height: 124px;
+            border-radius: 50%;
+            background: #0b1329;
+        }
+    </style>
+</head>
+<body class="p-4 max-w-md mx-auto pb-28">
+
+    <div class="flex items-center justify-between glass-card p-4 rounded-2xl shadow-xl border border-yellow-500/10 mb-6">
+        <div class="flex items-center gap-3">
+            <div class="relative">
+                <img id="user-avatar" src="https://ui-avatars.com/api/?name=User&background=random" alt="Profile" class="w-12 h-12 rounded-full border-2 border-yellow-500/50 object-cover">
+                <span class="absolute bottom-0 right-0 bg-green-500 w-3 h-3 rounded-full border-2 border-[#151a24]"></span>
+            </div>
+            <div>
+                <h2 id="user-display-name" class="text-sm font-bold text-gray-200 truncate max-w-[120px]">Syncing...</h2>
+                <p class="text-[10px] text-yellow-500/80 bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/20 inline-block mt-0.5">VIP Member</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <p class="text-[11px] text-gray-400">Total Balance</p>
+            <h1 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500">$<span id="user-balance">0.00</span></h1>
+        </div>
+    </div>
+
+    <div id="page-home" class="page active-page">
+        <div id="live-alert" class="hidden bg-emerald-950/40 border border-emerald-500/20 p-3 rounded-xl mb-4 flex items-center gap-3 transition-all">
+            <div class="bg-emerald-500 text-black rounded-full p-1.5 text-xs animate-pulse">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <p id="alert-text" class="text-xs text-emerald-300 font-medium"></p>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-900 via-[#111827] to-slate-900 border border-blue-500/20 p-5 rounded-2xl mb-6 shadow-2xl relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-brands fa-telegram text-xl text-blue-400"></i>
+                    <h3 class="text-xs font-bold text-gray-200 uppercase tracking-wider">Airdrop Tasks</h3>
+                </div>
+                <span id="tg-bonus-badge" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-[9px] px-2.5 py-1 rounded-full">+$1.00 REWARD</span>
+            </div>
+            
+            <div class="space-y-3 mb-4">
+                <div onclick="handleTgLink('https://t.me/usdteranh', 1)" id="task-card-1" class="bg-slate-900/90 border border-gray-800 p-3.5 rounded-xl flex justify-between items-center cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div id="task-icon-bg-1" class="w-9 h-9 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
+                            <i id="task-icon-1" class="fa-solid fa-users text-sm text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-200">1. Join Official Group</h4>
+                        </div>
+                    </div>
+                    <i id="task-arrow-1" class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
+                </div>
+
+                <div onclick="handleTgLink('https://t.me/usdteranh', 2)" id="task-card-2" class="bg-slate-900/90 border border-gray-800 p-3.5 rounded-xl flex justify-between items-center cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div id="task-icon-bg-2" class="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                            <i id="task-icon-2" class="fa-solid fa-receipt text-sm text-emerald-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-200">2. Join Payment Group</h4>
+                        </div>
+                    </div>
+                    <i id="task-arrow-2" class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
+                </div>
+            </div>
+            <button id="btn-claim-tg" onclick="claimTgReward()" class="w-full bg-gray-800 text-gray-500 font-bold py-3 rounded-xl text-xs cursor-not-allowed" disabled>
+                Claim Task Reward ($1.00)
+            </button>
+        </div>
+
+        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center">Premium Yield Slots (Daily Limit: 10 Ads Each)</h3>
+        <div class="flex flex-col items-center gap-6 mb-4">
+            
+            <div class="glass-card p-5 rounded-3xl w-full flex items-center justify-between gap-4 border border-gray-800">
+                <div class="circle-slot" id="circle-slot1">
+                    <div class="absolute flex flex-col items-center justify-center z-10">
+                        <span class="text-xs text-gray-400 font-medium">Slot 01</span>
+                        <span class="text-xl font-black text-emerald-400" id="counter-slot1">10/10</span>
+                        <span class="text-[9px] text-gray-500 mt-0.5">Remaining</span>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-sm text-gray-200">USDT Miner Base</h4>
+                    <p class="text-xs text-emerald-400 mt-0.5 font-medium">Yield: +$0.30 per ad</p>
+                    <button id="btn-slot1" onclick="watchMonetagAd('slot1')" class="mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer">
+                        <i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)
+                    </button>
+                </div>
+            </div>
+
+            <div class="glass-card p-5 rounded-3xl w-full flex items-center justify-between gap-4 border border-gray-800">
+                <div class="circle-slot" id="circle-slot2">
+                    <div class="absolute flex flex-col items-center justify-center z-10">
+                        <span class="text-xs text-gray-400 font-medium">Slot 02</span>
+                        <span class="text-xl font-black text-emerald-400" id="counter-slot2">10/10</span>
+                        <span class="text-[9px] text-gray-500 mt-0.5">Remaining</span>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-sm text-gray-200">USDT Miner Quantum</h4>
+                    <p class="text-xs text-emerald-400 mt-0.5 font-medium">Yield: +$0.30 per ad</p>
+                    <button id="btn-slot2" onclick="watchMonetagAd('slot2')" class="mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer">
+                        <i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="page-refer" class="page">
+        <div class="glass-card p-6 rounded-2xl text-center mb-6 border border-blue-500/5">
+            <div class="w-14 h-14 bg-gradient-to-tr from-blue-500 to-indigo-600 text-white text-xl rounded-full flex items-center justify-center mx-auto mb-3">
+                <i class="fa-solid fa-users-gear"></i>
+            </div>
+            <h3 class="font-bold text-base mb-1 text-gray-200">Network Referral System</h3>
+            <p class="text-xs text-gray-400 mb-4">Earn <span class="text-green-400 font-bold">$1.00</span> per user node invite.</p>
+            <div class="flex gap-2 bg-black/30 p-1.5 rounded-xl border border-gray-800">
+                <input type="text" id="refer-link" readonly class="bg-transparent px-2 text-xs flex-1 text-gray-400 focus:outline-none truncate">
+                <button onclick="copyReferLink()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Copy Link</button>
+            </div>
+        </div>
+        <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">My Affiliates (<span id="refer-count">0</span>)</h3>
+        <div id="refer-history-list" class="space-y-2">
+            <p class="text-xs text-gray-500 text-center py-6">No active node assets connected yet.</p>
+        </div>
+    </div>
+
+    <div id="page-withdraw" class="page">
+        <div class="glass-card p-5 rounded-2xl mb-6 border border-emerald-500/5">
+            <h3 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer text-emerald-500"></i> Secured Node Withdrawal</h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Select Crypto Asset</label>
+                    <select id="withdraw-gateway" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
+                        <option value="USDT-TRC20">USDT (TRC20 Node)</option>
+                        <option value="USDT-BEP20">USDT (BEP20 Smart Chain)</option>
+                        <option value="SOL">Solana Native (SOL)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Recipient Wallet Address</label>
+                    <input type="text" id="withdraw-address" placeholder="Paste your wallet address here" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
+                </div>
+                <div>
+                    <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Amount to Cashout ($)</label>
+                    <input type="number" id="withdraw-amount" min="5" value="10" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs font-bold text-yellow-400">
+                </div>
+                <button onclick="requestWithdraw()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 rounded-xl text-xs shadow-lg mt-2">
+                    Submit Withdrawal Request
+                </button>
+            </div>
+        </div>
+
+        <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider"><i class="fa-solid fa-list-check mr-1"></i> Audit Logs (History)</h3>
+        <div id="withdraw-history-list" class="space-y-2">
+            <p id="no-history-text" class="text-xs text-gray-500 text-center py-6">No previous ledger entries found.</p>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-[#060b18]/90 backdrop-blur-xl border-t border-slate-800/60 px-8 py-3 flex justify-between items-center max-w-md mx-auto z-50 rounded-t-2xl">
+        <button onclick="switchPage('home')" id="nav-home" class="flex flex-col items-center gap-1.5 text-yellow-500">
+            <i class="fa-solid fa-cube text-lg"></i>
+            <span class="text-[10px] font-bold tracking-wide">Dashboard</span>
+        </button>
+        <button onclick="switchPage('refer')" id="nav-refer" class="flex flex-col items-center gap-1.5 text-gray-500">
+            <i class="fa-solid fa-network-wired text-lg"></i>
+            <span class="text-[10px] font-bold tracking-wide">Referral</span>
+        </button>
+        <button onclick="switchPage('withdraw')" id="nav-withdraw" class="flex flex-col items-center gap-1.5 text-gray-500">
+            <i class="fa-solid fa-receipt text-lg"></i>
+            <span class="text-[10px] font-bold tracking-wide">Payout</span>
+        </button>
+    </div>
+
+    <script>
+        // ================= FIREBASE INITIALIZATION =================
+        const firebaseConfig = {
+            apiKey: "AIzaSyAHsuSw5ORLdeg59Jvx0goNR6632mKgSVY",
+            authDomain: "dailymoney-c72ef.firebaseapp.com",
+            databaseURL: "https://dailymoney-c72ef-default-rtdb.firebaseio.com",
+            projectId: "dailymoney-c72ef",
+            storageBucket: "dailymoney-c72ef.firebasestorage.app",
+            messagingSenderId: "89568779822",
+            appId: "1:89568779822:web:c3af656c534cbe20ab89bf",
+            measurementId: "G-YHK1ZXV845"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Telegram WebApp Setup
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        let userId = tg.initDataUnsafe?.user?.id || "88371923";
+        let username = tg.initDataUnsafe?.user?.username || "CryptoTrader";
+        let userPhoto = tg.initDataUnsafe?.user?.photo_url || `https://ui-avatars.com/api/?name=${username}&background=random`;
+
+        // App States
+        let currentBalance = 0.00; 
+        let totalRefers = 0; 
+        let isTgTaskClaimed = false;
+        let task1Clicked = false;
+        let task2Clicked = false;
+        let slot1_remaining = 10;
+        let slot2_remaining = 10;
+
+        document.getElementById('user-avatar').src = userPhoto;
+        document.getElementById('user-display-name').innerText = `@${username}`;
+        document.getElementById('refer-link').value = `https://t.me/usdterran_bot?start=${userId}`;
+
+        window.onload = function() {
+            loadUserData();
+            startRealtimeWithdrawAlerts();
+        };
+
+        // Firebase Sync
+        function loadUserData() {
+            const userRef = database.ref('users/' + userId);
+            userRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                if(data) {
+                    currentBalance = data.balance || 0.00;
+                    totalRefers = data.refersCount || 0;
+                    isTgTaskClaimed = data.telegramTaskCompleted || false;
+                    slot1_remaining = data.slot1_remaining !== undefined ? data.slot1_remaining : 10;
+                    slot2_remaining = data.slot2_remaining !== undefined ? data.slot2_remaining : 10;
+                } else {
+                    userRef.set({
+                        username: username,
+                        balance: 0.00,
+                        refersCount: 0,
+                        telegramTaskCompleted: false,
+                        slot1_remaining: 10,
+                        slot2_remaining: 10
+                    });
+                }
+                updateUI();
+            });
+
+            database.ref('withdrawals/' + userId).on('value', (snapshot) => {
+                renderWithdrawHistory(snapshot.val());
+            });
+        }
+
+        function updateUI() {
+            document.getElementById('user-balance').innerText = currentBalance.toFixed(2);
+            document.getElementById('refer-count').innerText = totalRefers;
+            
+            document.getElementById('counter-slot1').innerText = `${slot1_remaining}/10`;
+            document.getElementById('counter-slot2').innerText = `${slot2_remaining}/10`;
+
+            if(isTgTaskClaimed) setTgTaskAsClaimed();
+
+            updateCircleProgress('slot1', slot1_remaining);
+            updateCircleProgress('slot2', slot2_remaining);
+        }
+
+        function updateCircleProgress(slotId, remaining) {
+            let percent = ((10 - remaining) / 10) * 100;
+            const circle = document.getElementById(`circle-${slotId}`);
+            if(circle) {
+                if(remaining <= 0) {
+                    circle.style.background = `conic-gradient(#ef4444 100%, #1e293b 0%)`;
+                    const btn = document.getElementById(`btn-${slotId}`);
+                    if(btn) {
+                        btn.innerText = "Slot Locked (24h Limit)";
+                        btn.className = "mt-3 bg-red-950/40 text-red-400 border border-red-500/20 font-bold text-xs py-2.5 px-4 rounded-xl cursor-not-allowed w-full";
+                    }
+                } else {
+                    circle.style.background = `conic-gradient(#10b981 ${percent}%, #1e293b 0%)`;
+                }
+            }
+        }
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(`page-${pageId}`).classList.add('active-page');
+            const tabs = ['home', 'refer', 'withdraw'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`nav-${t}`);
+                if(t === pageId) { el.classList.replace('text-gray-500', 'text-yellow-500'); } 
+                else { el.classList.replace('text-yellow-500', 'text-gray-500'); }
+            });
+        }
+
+        // Telegram Tasks
+        function handleTgLink(url, taskNumber) {
+            tg.openTelegramLink(url); 
+            if(isTgTaskClaimed) return;
+            tg.HapticFeedback.notificationOccurred('success');
+            if(taskNumber === 1) { task1Clicked = true; updateCardSuccessStyles(1); } 
+            else if(taskNumber === 2) { task2Clicked = true; updateCardSuccessStyles(2); }
+            
+            if(task1Clicked && task2Clicked) {
+                setTimeout(() => {
+                    const claimBtn = document.getElementById('btn-claim-tg');
+                    claimBtn.disabled = false;
+                    claimBtn.className = "w-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-black py-3 rounded-xl text-xs shadow-xl animate-pulse cursor-pointer";
+                }, 1000);
+            }
+        }
+
+        function updateCardSuccessStyles(cardNumber) {
+            document.getElementById(`task-card-${cardNumber}`).className = "bg-emerald-950/20 border border-emerald-500/20 p-3.5 rounded-xl flex justify-between items-center";
+            document.getElementById(`task-icon-bg-${cardNumber}`).className = "w-9 h-9 rounded-xl bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30";
+            document.getElementById(`task-icon-${cardNumber}`).className = "fa-solid fa-circle-check text-sm text-emerald-400";
+            if (document.getElementById(`task-arrow-${cardNumber}`)) document.getElementById(`task-arrow-${cardNumber}`).className = "fa-solid fa-check text-emerald-400 text-xs";
+        }
+
+        function claimTgReward() {
+            let newBalance = currentBalance + 1.00;
+            database.ref('users/' + userId).update({
+                balance: newBalance,
+                telegramTaskCompleted: true
+            }).then(() => {
+                alert("Success! $1.00 Telegram Reward Applied.");
+            });
+        }
+
+        function setTgTaskAsClaimed() {
+            document.getElementById('tg-bonus-badge').innerText = "CLAIMED ✓";
+            document.getElementById('tg-bonus-badge').className = "bg-gray-800 text-gray-500 font-bold text-[9px] px-2 py-0.5 rounded-full";
+            updateCardSuccessStyles(1);
+            updateCardSuccessStyles(2);
+            const claimBtn = document.getElementById('btn-claim-tg');
+            claimBtn.innerText = "Claimed Successfully";
+            claimBtn.disabled = true;
+            claimBtn.className = "w-full bg-emerald-950/40 text-emerald-500 border border-emerald-500/20 font-bold py-2.5 rounded-xl text-xs cursor-not-allowed";
+        }
+
+        // ================= INSTANT AD & TIMER LOGIC ENGINE =================
+        function watchMonetagAd(slotId) {
+            let remaining = slotId === 'slot1' ? slot1_remaining : slot2_remaining;
+            
+            if(remaining <= 0) {
+                alert("Daily 10 Ads limit reached for this slot!");
+                return;
+            }
+
+            const btn = document.getElementById(`btn-${slotId}`);
+            btn.disabled = true;
+            btn.className = "mt-3 bg-gray-800 text-gray-500 font-bold text-xs py-2.5 px-4 rounded-xl cursor-not-allowed w-full";
+
+            // [CRITICAL FIX]: ক্লিকের সাথে সাথেই টাইমার স্ক্রিনে চলে আসবে 
+            let timeLeft = 15;
+            btn.innerText = `Securing Reward... ${timeLeft}s`;
+
+            // [CRITICAL FIX]: ক্লিকের সাথে সাথেই মনেট্যাগ স্ক্রিপ্ট কল হবে যাতে পপ-আপ ব্লক না হয়
+            try {
+                if (typeof show_11172053 === 'function') {
+                    show_11172053({ type: 'end' });
+                } else if (window['show_11172053']) {
+                    window['show_11172053']({ type: 'end' });
+                }
+            } catch(e) { 
+                console.log("Monetag triggered natively."); 
+            }
+
+            // ব্যাকগ্রাউন্ডে টাইমার রান হবে এবং টাইম শেষ হলে রিওয়ার্ড ক্রেডিট হবে
+            let countdown = setInterval(() => {
+                timeLeft--;
+                btn.innerText = `Securing Reward... ${timeLeft}s`;
+                
+                if(timeLeft <= 0) {
+                    clearInterval(countdown);
+                    
+                    let newBalance = currentBalance + 0.30;
+                    let newRemaining = remaining - 1;
+
+                    // ফায়ারবেস ডেটাবেস লাইভ সিঙ্ক ও আপডেট
+                    const updates = {};
+                    updates['users/' + userId + '/balance'] = newBalance;
+                    updates['users/' + userId + '/' + slotId + '_remaining'] = newRemaining;
+                    
+                    database.ref().update(updates).then(() => {
+                        tg.HapticFeedback.notificationOccurred('success');
+                        alert(`✨ Ad Reward Confirmed!\n\n+$0.30 added dynamically to your ledger.`);
+                        
+                        if(newRemaining > 0 && btn) {
+                            btn.disabled = false;
+                            btn.className = "mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer";
+                            btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)`;
+                        }
+                    });
+                }
+            }, 1000);
+        }
+
+        // ================= WITHDRAW NODES =================
+        function requestWithdraw() {
+            const gateway = document.getElementById('withdraw-gateway').value;
+            const walletAddress = document.getElementById('withdraw-address').value;
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+
+            if(!walletAddress || isNaN(amount) || amount <= 0) {
+                alert("Error: Please provide a valid wallet address and amount.");
+                return;
+            }
+
+            if(amount > currentBalance) {
+                alert("❌ Withdrawal Rejected: Insufficient balance available.");
+                return;
+            }
+
+            // সিকিউরিটি লেয়ার: ১৫ টি রেফার বাধ্যতামূলক
+            if(totalRefers < 15) {
+                tg.HapticFeedback.notificationOccurred('error');
+                alert(`❌ Withdrawal Rejected! \n\nSecurity Audit Failed: Secure mainnet cashout requires a minimum of 15 active referrals to generate transaction authorization keys.\n\nYour Current Referrals: ${totalRefers}/15`);
+                return;
+            }
+
+            let updatedBalance = currentBalance - amount;
+            const withdrawRef = database.ref('withdrawals/' + userId).push();
+            
+            const withdrawData = {
+                gateway: gateway,
+                address: walletAddress,
+                amount: amount,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                status: 'Pending Verification'
+            };
+
+            withdrawRef.set(withdrawData).then(() => {
+                database.ref('users/' + userId + '/balance').set(updatedBalance).then(() => {
+                    document.getElementById('withdraw-address').value = "";
+                    tg.HapticFeedback.notificationOccurred('success');
+                    alert(`🎉 Withdraw Successfully Submitted!\n\nYour cashout request of $${amount.toFixed(2)} via ${gateway} has been logged onto the ledger history.`);
+                });
+            });
+        }
+
+        function renderWithdrawHistory(data) {
+            const listContainer = document.getElementById('withdraw-history-list');
+            const noHistoryText = document.getElementById('no-history-text');
+
+            if(!data) {
+                if(noHistoryText) noHistoryText.style.display = 'block';
+                listContainer.innerHTML = "";
+                return;
+            }
+
+            if(noHistoryText) noHistoryText.style.display = 'none';
+            listContainer.innerHTML = ""; 
+            
+            Object.keys(data).reverse().forEach(key => {
+                const tx = data[key];
+                const card = document.createElement('div');
+                card.className = "bg-slate-900/80 border border-gray-800 p-3.5 rounded-xl flex justify-between items-center";
+                card.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                            <i class="fa-solid fa-clock-rotate-left text-sm text-emerald-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-200">${tx.gateway}</h4>
+                            <p class="text-[9px] text-gray-500 mt-0.5 truncate max-w-[150px]">${tx.address}</p>
+                            <p class="text-[9px] text-gray-400 mt-0.5">${tx.date}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-black text-emerald-400">-$${parseFloat(tx.amount).toFixed(2)}</span>
+                        <span class="block text-[8px] font-bold bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded-full border border-amber-500/20 mt-1">${tx.status}</span>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function startRealtimeWithdrawAlerts() {
+            const networkUsers = ['Arif_Crypto', 'Mim_USDT', 'Rashed_X', 'Nipa_Fx', 'Sol_Master', 'Dev_Hasan'];
+            const networks = ['USDT (TRC20)', 'USDT (BEP20)', 'Solana NATIVE'];
+            setInterval(() => {
+                if (document.getElementById('page-home').classList.contains('active-page')) {
+                    const u = networkUsers[Math.floor(Math.random() * networkUsers.length)];
+                    const n = networks[Math.floor(Math.random() * networks.length)];
+                    const amt = (Math.random() * (40 - 5) + 5).toFixed(2);
+                    const alertBox = document.getElementById('live-alert');
+                    if (alertBox) {
+                        document.getElementById('alert-text').innerHTML = `Network Alert: <b>@${u}</b> has extracted <b>$${amt}</b> via ${n} node successfully.`;
+                        alertBox.classList.remove('hidden');
+                        setTimeout(() => alertBox.classList.add('hidden'), 4500);
+                    }
+                }
+            }, 10000);
+        }
+
+        function copyReferLink() {
+            const linkInput = document.getElementById("refer-link");
+            linkInput.select();
+            navigator.clipboard.writeText(linkInput.value);
+            tg.HapticFeedback.notificationOccurred('success');
+            alert("Invite link copied!");
+        }
+    </script>
+</body>
+</html>
