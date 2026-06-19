@@ -229,6 +229,9 @@
     </div>
 
     <script>
+        // ================= BOT TOKEN CONFIGURATION =================
+        const BOT_TOKEN = "8958599822:AAFlxvrgnS8vo1qz_ZtbyimBOLM-P4ccJBk"; // এখানে আপনার বটের টোকেন দিন
+
         // ================= FIREBASE INITIALIZATION =================
         const firebaseConfig = {
             apiKey: "AIzaSyAHsuSw5ORLdeg59Jvx0goNR6632mKgSVY",
@@ -425,14 +428,47 @@
             if (document.getElementById(`task-arrow-${cardNumber}`)) document.getElementById(`task-arrow-${cardNumber}`).className = "fa-solid fa-check text-emerald-400 text-xs";
         }
 
-        function claimTgReward() {
-            let newBalance = currentBalance + 1.00;
-            database.ref('users/' + userId).update({
-                balance: newBalance,
-                telegramTaskCompleted: true
-            }).then(() => {
-                alert("Success! $1.00 Telegram Reward Applied.");
-            });
+        // ================= MEMBERSHIP VERIFICATION SYSTEM =================
+        async function checkTelegramMembership(chatUsername) {
+            try {
+                let response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getChatMember?chat_id=${chatUsername}&user_id=${userId}`);
+                let data = await response.json();
+                if(data.ok) {
+                    let status = data.result.status;
+                    return (status === 'member' || status === 'administrator' || status === 'creator');
+                }
+                return false;
+            } catch(e) {
+                return false;
+            }
+        }
+
+        async function claimTgReward() {
+            if(isTgTaskClaimed) return;
+
+            const claimBtn = document.getElementById('btn-claim-tg');
+            claimBtn.innerText = "Checking Groups...";
+            claimBtn.disabled = true;
+
+            // বটের মাধ্যমে রিয়েলটাইম চেক করা হচ্ছে ইউজার গ্রুপে আছে কি না
+            let isJoinedGroup1 = await checkTelegramMembership("@usdterann");
+            let isJoinedGroup2 = await checkTelegramMembership("@usdterans");
+
+            if (isJoinedGroup1 && isJoinedGroup2) {
+                let newBalance = currentBalance + 1.00;
+                database.ref('users/' + userId).update({
+                    balance: newBalance,
+                    telegramTaskCompleted: true
+                }).then(() => {
+                    alert("Success! $1.00 Telegram Reward Applied.");
+                });
+            } else {
+                tg.HapticFeedback.notificationOccurred('error');
+                alert("❌ Verification Failed!\n\nআপনি গ্রুপে জয়েন করেননি। দয়া করে ২টি গ্রুপেই জয়েন করে তারপর Claim বাটনে চাপুন।");
+                claimBtn.innerText = "Claim Task Reward ($1.00)";
+                claimBtn.disabled = false;
+                claimBtn.className = "w-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-black py-3 rounded-xl text-xs shadow-xl animate-pulse cursor-pointer";
+            }
         }
 
         function setTgTaskAsClaimed() {
@@ -582,7 +618,7 @@
         // ================= 50 PRO LIVE WITHDRAWAL HISTORY SYSTEM =================
         const liveWithdrawHistoryData = [
             { user: "Alex_CryptoPro", amount: "45.50", asset: "USDT (TRC20)" },
-            { user: "Mim_USDT", amount: "12.80", asset: "USDT (BEP20)" },
+            { user: "Josn_Karma", amount: "12.80", asset: "USDT (BEP20)" },
             { user: "Solana_King", amount: "88.00", asset: "Solana NATIVE" },
             { user: "Sabbir_Fx", amount: "25.00", asset: "USDT (TRC20)" },
             { user: "Crypto_Nova", amount: "115.35", asset: "USDT (BEP20)" },
@@ -667,5 +703,4 @@
         }
     </script>
 </body>
-</html>
-
+                    </html>
