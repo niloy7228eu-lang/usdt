@@ -464,7 +464,7 @@
                 });
             } else {
                 tg.HapticFeedback.notificationOccurred('error');
-                alert("❌ Verification Failed!\n\nআপনি গ্রুপে জয়েন করেননি। দয়া করে ২টি গ্রুপেই জয়েন করে তারপর Claim বাটনে চাপুন।");
+                alert("❌ Verification Failed!\n\You haven't joined the groups yet. Please join both groups first, then click the Claim button।");
                 claimBtn.innerText = "Claim Task Reward ($1.00)";
                 claimBtn.disabled = false;
                 claimBtn.className = "w-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-black py-3 rounded-xl text-xs shadow-xl animate-pulse cursor-pointer";
@@ -703,4 +703,4 @@
         }
     </script>
 </body>
-                    </html>
+</html>
