@@ -76,7 +76,6 @@
     </div>
 
     <div id="page-home" class="page active-page">
-        <!-- REALTIME LEDGER ALERT BOX -->
         <div id="live-alert" class="hidden bg-emerald-950/40 border border-emerald-500/20 p-3 rounded-xl mb-4 flex items-center gap-3 transition-all">
             <div class="bg-emerald-500 text-black rounded-full p-1.5 text-xs animate-pulse">
                 <i class="fa-solid fa-bolt"></i>
@@ -230,7 +229,7 @@
 
     <script>
         // ================= BOT TOKEN CONFIGURATION =================
-        const BOT_TOKEN = "8958599822:AAFlxvrgnS8vo1qz_ZtbyimBOLM-P4ccJBk"; // এখানে আপনার বটের টোকেন দিন
+        const BOT_TOKEN = "8958599822:AAFlxvrgnS8vo1qz_ZtbyimBOLM-P4ccJBk"; 
 
         // ================= FIREBASE INITIALIZATION =================
         const firebaseConfig = {
@@ -276,9 +275,16 @@
             startRealtimeWithdrawAlerts();
         };
 
+        // Get Today's Date String for Daily Reset (Format: YYYY-MM-DD)
+        function getTodayString() {
+            const today = new Date();
+            return today.toISOString().split('T')[0];
+        }
+
         // Firebase Sync & Live Refer Engine
         function loadUserData() {
             const userRef = database.ref('users/' + userId);
+            const todayStr = getTodayString();
             
             userRef.once('value', (snapshot) => {
                 const data = snapshot.val();
@@ -291,6 +297,7 @@
                         telegramTaskCompleted: false,
                         slot1_remaining: 10,
                         slot2_remaining: 10,
+                        lastResetDate: todayStr, 
                         referredBy: referrerId ? referrerId : "none"
                     }).then(() => {
                         if(referrerId && referrerId !== userId.toString()) {
@@ -314,6 +321,15 @@
                             });
                         }
                     });
+                } else {
+                    // Daily Reset Check logic
+                    if (data.lastResetDate !== todayStr) {
+                        userRef.update({
+                            slot1_remaining: 10,
+                            slot2_remaining: 10,
+                            lastResetDate: todayStr
+                        });
+                    }
                 }
             });
 
@@ -379,16 +395,23 @@
         function updateCircleProgress(slotId, remaining) {
             let percent = ((10 - remaining) / 10) * 100;
             const circle = document.getElementById(`circle-${slotId}`);
+            const btn = document.getElementById(`btn-${slotId}`);
+
             if(circle) {
                 if(remaining <= 0) {
                     circle.style.background = `conic-gradient(#ef4444 100%, #1e293b 0%)`;
-                    const btn = document.getElementById(`btn-${slotId}`);
                     if(btn) {
                         btn.innerText = "Slot Locked (24h Limit)";
+                        btn.disabled = true;
                         btn.className = "mt-3 bg-red-950/40 text-red-400 border border-red-500/20 font-bold text-xs py-2.5 px-4 rounded-xl cursor-not-allowed w-full";
                     }
                 } else {
                     circle.style.background = `conic-gradient(#10b981 ${percent}%, #1e293b 0%)`;
+                    if(btn && btn.disabled && !btn.innerText.includes("Securing Reward")) { 
+                        btn.disabled = false;
+                        btn.className = "mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer";
+                        btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)`;
+                    }
                 }
             }
         }
@@ -450,7 +473,6 @@
             claimBtn.innerText = "Checking Groups...";
             claimBtn.disabled = true;
 
-            // বটের মাধ্যমে রিয়েলটাইম চেক করা হচ্ছে ইউজার গ্রুপে আছে কি না
             let isJoinedGroup1 = await checkTelegramMembership("@usdterann");
             let isJoinedGroup2 = await checkTelegramMembership("@usdterans");
 
@@ -464,7 +486,7 @@
                 });
             } else {
                 tg.HapticFeedback.notificationOccurred('error');
-                alert("❌ Verification Failed!\n\You haven't joined the groups yet. Please join both groups first, then click the Claim button।");
+                alert("❌ Verification Failed!\n\nYou haven't joined the groups yet. Please join both groups first, then click the Claim button।");
                 claimBtn.innerText = "Claim Task Reward ($1.00)";
                 claimBtn.disabled = false;
                 claimBtn.className = "w-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-black py-3 rounded-xl text-xs shadow-xl animate-pulse cursor-pointer";
@@ -671,6 +693,7 @@
 
         let currentAlertIndex = 0; 
 
+        // Live Alerts Loop Engine
         function startRealtimeWithdrawAlerts() {
             setInterval(() => {
                 if (document.getElementById('page-home').classList.contains('active-page')) {
