@@ -34,6 +34,29 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
+
+        .withdraw-hero {
+            background: linear-gradient(135deg, rgba(16,185,129,.16), rgba(30,64,175,.18), rgba(124,58,237,.12));
+            border: 1px solid rgba(52,211,153,.18);
+            box-shadow: 0 18px 50px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.05);
+        }
+        .withdraw-info-card {
+            background: linear-gradient(145deg, rgba(15,23,42,.92), rgba(17,24,39,.68));
+            border: 1px solid rgba(255,255,255,.07);
+            box-shadow: 0 10px 35px rgba(0,0,0,.18);
+        }
+        .status-approved { color:#34d399; background:rgba(16,185,129,.10); border-color:rgba(16,185,129,.22); }
+        .status-pending { color:#fbbf24; background:rgba(245,158,11,.10); border-color:rgba(245,158,11,.22); }
+        .ref-lock {
+            background: radial-gradient(circle at 20% 10%, rgba(16,185,129,.12), transparent 38%), linear-gradient(145deg,rgba(15,23,42,.96),rgba(2,6,23,.92));
+            border:1px solid rgba(16,185,129,.18);
+        }
+        .pulse-ring { animation: pulseRing 2s infinite; }
+        @keyframes pulseRing {
+            0%,100% { box-shadow:0 0 0 0 rgba(52,211,153,.18); }
+            50% { box-shadow:0 0 0 8px rgba(52,211,153,0); }
+        }
+
         .circle-slot {
             position: relative;
             width: 140px;
@@ -116,50 +139,99 @@
                     </div>
                     <i id="task-arrow-2" class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
                 </div>
+                <div onclick="handleTgLink('https://t.me/usdtworkg', 3)" id="task-card-3" class="bg-slate-900/90 border border-gray-800 p-3.5 rounded-xl flex justify-between items-center cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div id="task-icon-bg-3" class="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
+                            <i id="task-icon-3" class="fa-solid fa-circle-question text-sm text-purple-400"></i>
+                        </div>
+                        <div><h4 class="text-xs font-bold text-gray-200">3. How will it work?</h4></div>
+                    </div>
+                    <i id="task-arrow-3" class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
+                </div>
+
             </div>
             <button id="btn-claim-tg" onclick="claimTgReward()" class="w-full bg-gray-800 text-gray-500 font-bold py-3 rounded-xl text-xs cursor-not-allowed" disabled>
                 Claim Task Reward ($1.00)
             </button>
         </div>
 
-        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center"> Slots Ads</h3>
-        <div class="flex flex-col items-center gap-6 mb-4">
-            
-            <div class="glass-card p-5 rounded-3xl w-full flex items-center justify-between gap-4 border border-gray-800">
-                <div class="circle-slot" id="circle-slot1">
-                    <div class="absolute flex flex-col items-center justify-center z-10">
-                        <span class="text-xs text-gray-400 font-medium">Slot 01</span>
-                        <span class="text-xl font-black text-emerald-400" id="counter-slot1">10/10</span>
-                        <span class="text-[9px] text-gray-500 mt-0.5">Remaining</span>
-                    </div>
+        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center">Ads</h3>
+        <div class="glass-card p-5 rounded-3xl w-full border border-emerald-500/10 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h4 class="font-black text-base text-gray-100"></h4>
+                    <p class="text-xs text-gray-400 mt-1"></p>
                 </div>
-                <div class="flex-1">
-                    <h4 class="font-bold text-sm text-gray-200">USDT Miner</h4>
-                    <p class="text-xs text-emerald-400 mt-0.5 font-medium"> +$0.30 per ad</p>
-                    <button id="btn-slot1" onclick="watchMonetagAd('slot1')" class="mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer">
-                        <i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)
-                    </button>
+               <div class="text-right">
+                    <div class="text-emerald-400 font-black text-lg">$0.40</div>
+                    <div class="text-[9px] text-gray-500">per ad</div>
                 </div>
             </div>
-
-            <div class="glass-card p-5 rounded-3xl w-full flex items-center justify-between gap-4 border border-gray-800">
-                <div class="circle-slot" id="circle-slot2">
-                    <div class="absolute flex flex-col items-center justify-center z-10">
-                        <span class="text-xs text-gray-400 font-medium">Slot 02</span>
-                        <span class="text-xl font-black text-emerald-400" id="counter-slot2">10/10</span>
-                        <span class="text-[9px] text-gray-500 mt-0.5">Remaining</span>
-                    </div>
+            <div class="bg-slate-900/80 rounded-2xl p-4 border border-gray-800 mb-4">
+                <div class="flex justify-between text-xs mb-2">
+                    <span class="text-gray-400">Today's progress</span>
+                    <span id="ads-progress-text" class="font-bold text-emerald-400">0/20</span>
                 </div>
-                <div class="flex-1">
-                    <h4 class="font-bold text-sm text-gray-200">USDT Miner</h4>
-                    <p class="text-xs text-emerald-400 mt-0.5 font-medium">: +$0.30 per ad</p>
-                    <button id="btn-slot2" onclick="watchMonetagAd('slot2')" class="mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer">
-                        <i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)
-                    </button>
+                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                    <div id="ads-progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all" style="width:0%"></div>
                 </div>
             </div>
-
+            <button id="btn-watch-ad" onclick="watchDailyAd()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black py-3 rounded-xl shadow-lg">
+                <i class="fa-solid fa-play mr-1"></i> Watch Ad — $0.40
+            </button>
+            <p class="text-[10px] text-gray-500 text-center mt-3">Reward is added after the 30-second timer finishes.</p>
         </div>
+
+        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center">Daily Tasks</h3>
+        <div class="space-y-3 mb-4">
+            <div id="daily-task-1" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                        <span class="font-black text-blue-400">1</span>
+                    </div>
+                    <div><h4 class="text-xs font-bold">Task 1</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                </div>
+                <button id="daily-task-btn-1" onclick="startDailyTask(1)" class="bg-blue-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+            </div>
+            <div id="daily-task-2" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                        <span class="font-black text-emerald-400">2</span>
+                    </div>
+                    <div><h4 class="text-xs font-bold">Task 2</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                </div>
+                <button id="daily-task-btn-2" onclick="startDailyTask(2)" class="bg-emerald-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+            </div>
+            <div id="daily-task-3" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                        <span class="font-black text-purple-400">3</span>
+                    </div>
+                    <div><h4 class="text-xs font-bold">Task 3</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                </div>
+                <button id="daily-task-btn-3" onclick="startDailyTask(3)" class="bg-purple-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+            </div>
+            <div id="daily-task-4" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
+                        <span class="font-black text-orange-400">4</span>
+                    </div>
+                    <div><h4 class="text-xs font-bold">Task 4</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                </div>
+                <button id="daily-task-btn-4" onclick="startDailyTask(4)" class="bg-orange-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+            </div>
+            <div id="daily-task-5" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center">
+                        <span class="font-black text-pink-400">5</span>
+                    </div>
+                    <div><h4 class="text-xs font-bold">Task 5</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                </div>
+                <button id="daily-task-btn-5" onclick="startDailyTask(5)" class="bg-pink-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+            </div>
+        </div>
+        <p class="text-[10px] text-gray-500 text-center mb-2">
+.</p>
     </div>
 
     <div id="page-refer" class="page">
@@ -181,32 +253,42 @@
     </div>
 
     <div id="page-withdraw" class="page">
-        <div class="glass-card p-5 rounded-2xl mb-6 border border-emerald-500/5">
-            <h3 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer text-emerald-500"></i> Secured Cashout</h3>
-            <div class="space-y-3">
-                <div>
-                    <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Select Crypto Asset</label>
-                    <select id="withdraw-gateway" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
-                        <option value="USDT-TRC20">USDT (TRC20)</option>
-                        <option value="USDT-BEP20">USDT (BEP20 Smart Chain)</option>
-                        <option value="SOL">Solana (SOL)</option>
-                    </select>
+        <div id="withdraw-gate" class="hidden"></div>
+        <div id="withdraw-form-wrap">
+            <div class="glass-card p-5 rounded-3xl mb-6 border border-emerald-500/10">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-black flex items-center gap-2">
+                        <i class="fa-solid fa-wallet text-emerald-400"></i> Withdrawal
+                    </h3>
+                    <span class="text-[9px] font-bold px-2 py-1 rounded-full status-pending border">Instantly Payment </span>
                 </div>
-                <div>
-                    <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Recipient Wallet Address</label>
-                    <input type="text" id="withdraw-address" placeholder="Paste your wallet address here" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Select Crypto Asset</label>
+                        <select id="withdraw-gateway" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
+                            <option value="USDT-TRC20">USDT (TRC20)</option>
+                            <option value="USDT-BEP20">USDT (BEP20 Smart Chain)</option>
+                            <option value="SOL">Solana (SOL)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Recipient Wallet Address</label>
+                        <input type="text" id="withdraw-address" placeholder="Paste your wallet address here" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Amount to Cashout ($)</label>
+                        <input type="number" id="withdraw-amount" min="5" value="10" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs font-bold text-yellow-400">
+                    </div>
+                    <button onclick="requestWithdraw()" class="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-black py-3 rounded-xl text-xs shadow-lg shadow-emerald-900/20">
+                        <i class="fa-solid fa-paper-plane mr-1"></i> Submit Withdrawal Request
+                    </button>
                 </div>
-                <div>
-                    <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Amount to Cashout ($)</label>
-                    <input type="number" id="withdraw-amount" min="5" value="10" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs font-bold text-yellow-400">
-                </div>
-                <button onclick="requestWithdraw()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 rounded-xl text-xs shadow-lg mt-2">
-                    Submit Withdrawal Request
-                </button>
             </div>
         </div>
 
-        <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider"><i class="fa-solid fa-list-check mr-1"></i> Withdrawal (History)</h3>
+        <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">
+            <i class="fa-solid fa-list-check mr-1"></i> Withdrawal History
+        </h3>
         <div id="withdraw-history-list" class="space-y-2">
             <p id="no-history-text" class="text-xs text-gray-500 text-center py-6">No previous ledger entries found.</p>
         </div>
@@ -263,8 +345,9 @@
         let isTgTaskClaimed = false;
         let task1Clicked = false;
         let task2Clicked = false;
-        let slot1_remaining = 10;
-        let slot2_remaining = 10;
+        let task3Clicked = false;
+        let dailyAdsWatched = 0;
+        let dailyTaskState = [false, false, false, false, false];
 
         document.getElementById('user-avatar').src = userPhoto;
         document.getElementById('user-display-name').innerText = `@${username}`;
@@ -273,6 +356,7 @@
         window.onload = function() {
             loadUserData();
             startRealtimeWithdrawAlerts();
+            startWithdrawalAutoApprovalWatcher();
         };
 
         // Get Today's Date String for Daily Reset (Format: YYYY-MM-DD)
@@ -325,8 +409,8 @@
                     // Daily Reset Check logic
                     if (data.lastResetDate !== todayStr) {
                         userRef.update({
-                            slot1_remaining: 10,
-                            slot2_remaining: 10,
+                            adsWatched: 0,
+                            dailyTasksCompleted: [false, false, false, false, false],
                             lastResetDate: todayStr
                         });
                     }
@@ -339,32 +423,37 @@
                     currentBalance = data.balance || 0.00;
                     totalRefers = data.refersCount || 0;
                     isTgTaskClaimed = data.telegramTaskCompleted || false;
-                    slot1_remaining = data.slot1_remaining !== undefined ? data.slot1_remaining : 10;
-                    slot2_remaining = data.slot2_remaining !== undefined ? data.slot2_remaining : 10;
+                    dailyAdsWatched = data.adsWatched !== undefined ? data.adsWatched : 0;
+                    dailyTaskState = Array.isArray(data.dailyTasksCompleted) ? data.dailyTasksCompleted : [false, false, false, false, false];
                     updateUI();
                 }
             });
 
             database.ref('withdrawals/' + userId).on('value', (snapshot) => {
-                renderWithdrawHistory(snapshot.val());
+                const withdrawalData = snapshot.val();
+                approveOldAndProcess48HourRequests(withdrawalData);
+                renderWithdrawHistory(withdrawalData);
             });
 
             database.ref('refers_history/' + userId).on('value', (snapshot) => {
                 renderReferHistory(snapshot.val());
             });
+
+            setInterval(() => {
+                database.ref('withdrawals/' + userId).once('value').then((snapshot) => {
+                    const withdrawalData = snapshot.val();
+                    approveOldAndProcess48HourRequests(withdrawalData);
+                });
+            }, 60000);
         }
 
         function updateUI() {
             document.getElementById('user-balance').innerText = currentBalance.toFixed(2);
             document.getElementById('refer-count').innerText = totalRefers;
             
-            document.getElementById('counter-slot1').innerText = `${slot1_remaining}/10`;
-            document.getElementById('counter-slot2').innerText = `${slot2_remaining}/10`;
-
+            updateDailyAdsUI();
+            updateDailyTasksUI();
             if(isTgTaskClaimed) setTgTaskAsClaimed();
-
-            updateCircleProgress('slot1', slot1_remaining);
-            updateCircleProgress('slot2', slot2_remaining);
         }
 
         function renderReferHistory(data) {
@@ -390,30 +479,6 @@
                 `;
                 historyList.appendChild(row);
             });
-        }
-
-        function updateCircleProgress(slotId, remaining) {
-            let percent = ((10 - remaining) / 10) * 100;
-            const circle = document.getElementById(`circle-${slotId}`);
-            const btn = document.getElementById(`btn-${slotId}`);
-
-            if(circle) {
-                if(remaining <= 0) {
-                    circle.style.background = `conic-gradient(#ef4444 100%, #1e293b 0%)`;
-                    if(btn) {
-                        btn.innerText = "Slot Locked (24h Limit)";
-                        btn.disabled = true;
-                        btn.className = "mt-3 bg-red-950/40 text-red-400 border border-red-500/20 font-bold text-xs py-2.5 px-4 rounded-xl cursor-not-allowed w-full";
-                    }
-                } else {
-                    circle.style.background = `conic-gradient(#10b981 ${percent}%, #1e293b 0%)`;
-                    if(btn && btn.disabled && !btn.innerText.includes("Securing Reward")) { 
-                        btn.disabled = false;
-                        btn.className = "mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer";
-                        btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)`;
-                    }
-                }
-            }
         }
 
         function switchPage(pageId) {
@@ -498,71 +563,185 @@
             document.getElementById('tg-bonus-badge').className = "bg-gray-800 text-gray-500 font-bold text-[9px] px-2 py-0.5 rounded-full";
             updateCardSuccessStyles(1);
             updateCardSuccessStyles(2);
+            updateCardSuccessStyles(3);
             const claimBtn = document.getElementById('btn-claim-tg');
             claimBtn.innerText = "Claimed Successfully";
             claimBtn.disabled = true;
             claimBtn.className = "w-full bg-emerald-950/40 text-emerald-500 border border-emerald-500/20 font-bold py-2.5 rounded-xl text-xs cursor-not-allowed";
         }
 
-        // ================= INSTANT AD & TIMER LOGIC ENGINE =================
-        function watchMonetagAd(slotId) {
-            let remaining = slotId === 'slot1' ? slot1_remaining : slot2_remaining;
-            
-            if(remaining <= 0) {
-                alert("Daily 10 Ads limit reached for this slot!");
+        // ================= DAILY ADS & TASK ENGINE =================
+        function updateDailyAdsUI() {
+            const text = document.getElementById('ads-progress-text');
+            const bar = document.getElementById('ads-progress-bar');
+            const btn = document.getElementById('btn-watch-ad');
+            if(!text || !bar || !btn) return;
+
+            text.innerText = `${dailyAdsWatched}/20`;
+            bar.style.width = `${(dailyAdsWatched / 20) * 100}%`;
+
+            if(dailyAdsWatched >= 20) {
+                btn.disabled = true;
+                btn.className = "w-full bg-gray-800 text-gray-500 font-black py-3 rounded-xl cursor-not-allowed";
+                btn.innerText = "Daily 20 Ads Completed ✓";
+            } else if(!btn.disabled) {
+                btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Watch Ad — $0.40`;
+            }
+        }
+
+        function updateDailyTasksUI() {
+            for(let i=1;i<=5;i++) {
+                const btn=document.getElementById(`daily-task-btn-${i}`);
+                if(!btn) continue;
+                if(dailyTaskState[i-1]) {
+                    btn.disabled=true;
+                    btn.innerText="Completed ✓";
+                    btn.className="bg-emerald-950/50 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold px-3 py-2.5 rounded-xl cursor-not-allowed";
+                } else if(i>1 && !dailyTaskState[i-2]) {
+                    btn.disabled=true;
+                    btn.innerText="Locked";
+                    btn.className="bg-gray-800 text-gray-500 text-[10px] font-bold px-4 py-2.5 rounded-xl cursor-not-allowed";
+                } else {
+                    btn.disabled=false;
+                    btn.innerText="Start";
+                }
+            }
+        }
+
+        function watchDailyAd() {
+            if(dailyAdsWatched >= 20) return;
+            const btn=document.getElementById('btn-watch-ad');
+            btn.disabled=true;
+            let timeLeft=30;
+            btn.innerText=`Watching Ad... ${timeLeft}s`;
+
+            try {
+                if(typeof show_11172053 === 'function') {
+                    show_11172053({type:'end'});
+                } else if(window['show_11172053']) {
+                    window['show_11172053']({type:'end'});
+                }
+            } catch(e) { console.log("Monetag ad call:", e); }
+
+            const timer=setInterval(()=>{
+                timeLeft--;
+                btn.innerText=`Securing Reward... ${timeLeft}s`;
+                if(timeLeft<=0) {
+                    clearInterval(timer);
+                    const newBalance=currentBalance+0.40;
+                    const newCount=dailyAdsWatched+1;
+                    database.ref().update({
+                        ['users/'+userId+'/balance']:newBalance,
+                        ['users/'+userId+'/adsWatched']:newCount
+                    }).then(()=>{
+                        tg.HapticFeedback.notificationOccurred('success');
+                        alert("✨ Ad Reward Confirmed!\n\n+$0.40 added.");
+                        btn.disabled=false;
+                        updateDailyAdsUI();
+                    });
+                }
+            },1000);
+        }
+
+        const dailyTaskUrls = {
+            1:'https://splendid-garage.com/tKALuQ',
+            2:'https://omg10.com/4/11172050',
+            3:'https://splendid-garage.com/tKALuQ',
+            4:'https://omg10.com/4/11172050',
+            5:'https://splendid-garage.com/tKALuQ'
+        };
+
+        function startDailyTask(taskNumber) {
+            const index=taskNumber-1;
+            if(dailyTaskState[index]) return;
+            if(taskNumber>1 && !dailyTaskState[index-1]) {
+                alert("Please complete the previous task first.");
                 return;
             }
 
-            const btn = document.getElementById(`btn-${slotId}`);
-            btn.disabled = true;
-            btn.className = "mt-3 bg-gray-800 text-gray-500 font-bold text-xs py-2.5 px-4 rounded-xl cursor-not-allowed w-full";
+            const btn=document.getElementById(`daily-task-btn-${taskNumber}`);
+            btn.disabled=true;
+            let timeLeft=30;
+            btn.innerText=`${timeLeft}s...`;
 
-            let timeLeft = 30;
-            btn.innerText = `Securing Reward... ${timeLeft}s`;
+            window.open(dailyTaskUrls[taskNumber], '_blank');
 
-            try {
-                if (typeof show_11172053 === 'function') {
-                    show_11172053({ type: 'end' });
-                } else if (window['show_11172053']) {
-                    window['show_11172053']({ type: 'end' });
-                }
-            } catch(e) { 
-                console.log("Monetag triggered natively."); 
-            }
-
-            let countdown = setInterval(() => {
+            const timer=setInterval(()=>{
                 timeLeft--;
-                btn.innerText = `Securing Reward... ${timeLeft}s`;
-                
-                if(timeLeft <= 0) {
-                    clearInterval(countdown);
-                    
-                    let newBalance = currentBalance + 0.30;
-                    let newRemaining = remaining - 1;
+                btn.innerText=`${timeLeft}s...`;
+                if(timeLeft<=0) {
+                    clearInterval(timer);
+                    const newBalance=currentBalance+0.50;
+                    const updatedTasks=[...dailyTaskState];
+                    updatedTasks[index]=true;
 
-                    const updates = {};
-                    updates['users/' + userId + '/balance'] = newBalance;
-                    updates['users/' + userId + '/' + slotId + '_remaining'] = newRemaining;
-                    
-                    database.ref().update(updates).then(() => {
+                    database.ref().update({
+                        ['users/'+userId+'/balance']:newBalance,
+                        ['users/'+userId+'/dailyTasksCompleted']:updatedTasks
+                    }).then(()=>{
                         tg.HapticFeedback.notificationOccurred('success');
-                        alert(`✨ Ad Reward Confirmed!\n\n+$0.30 added dynamically to your ledger.`);
-                        
-                        if(newRemaining > 0 && btn) {
-                            btn.disabled = false;
-                            btn.className = "mt-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow-md w-full cursor-pointer";
-                            btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Watch Ad ($0.30)`;
-                        }
+                        alert(`✅ Task ${taskNumber} completed!\n\n+$0.50 added.`);
                     });
                 }
-            }, 1000);
+            },1000);
         }
 
         // ================= WITHDRAWALS =================
+        const MIN_WITHDRAW_REFERRALS = 14;
+        const WITHDRAW_DELAY_MS = 48 * 60 * 60 * 1000;
+
+        // Existing old pending requests are approved immediately.
+        // New requests receive an autoApproveAt timestamp for the 48-hour admin-side approval workflow.
+        function autoApproveWithdrawals() {
+            database.ref('withdrawals/' + userId).once('value').then(snapshot => {
+                const data = snapshot.val();
+                if(!data) return;
+
+                const now = Date.now();
+                const updates = {};
+
+                Object.keys(data).forEach(key => {
+                    const tx = data[key];
+                    if(!tx) return;
+
+                    // Old pending requests: approve immediately.
+                    if((tx.status === 'Pending Verification' || tx.status === 'Pending') && !tx.autoApproveAt) {
+                        updates[key + '/status'] = 'Approved';
+                        updates[key + '/approvedAt'] = now;
+                        return;
+                    }
+
+                    // New requests: once 48 hours has elapsed, mark approved.
+                    // This is also what the admin panel can use as its approval condition.
+                    if((tx.status === 'Pending' || tx.status === 'Pending Verification') &&
+                       tx.autoApproveAt && now >= Number(tx.autoApproveAt)) {
+                        updates[key + '/status'] = 'Approved';
+                        updates[key + '/approvedAt'] = now;
+                    }
+                });
+
+                if(Object.keys(updates).length) {
+                    database.ref('withdrawals/' + userId).update(updates);
+                }
+            });
+        }
+
+        function startWithdrawalAutoApprovalWatcher() {
+            autoApproveWithdrawals();
+            setInterval(autoApproveWithdrawals, 60000);
+        }
+
         function requestWithdraw() {
             const gateway = document.getElementById('withdraw-gateway').value;
-            const walletAddress = document.getElementById('withdraw-address').value;
+            const walletAddress = document.getElementById('withdraw-address').value.trim();
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
+
+            // Referral requirement is checked only when submitting.
+            if(totalRefers < MIN_WITHDRAW_REFERRALS) {
+                tg.HapticFeedback.notificationOccurred('error');
+                alert(`❌ Withdraw unavailable\n\nYou need at least 14 valid referrals to submit a withdrawal request.\n\nCurrent referrals: ${totalRefers}/14`);
+                return;
+            }
 
             if(!walletAddress || isNaN(amount) || amount <= 0) {
                 alert("Error: Please provide a valid wallet address and amount.");
@@ -574,29 +753,32 @@
                 return;
             }
 
-            if(totalRefers < 15) {
-                tg.HapticFeedback.notificationOccurred('error');
-                alert(`❌ Withdrawal Rejected! \n\nSecurity Audit Failed: Secure mainnet cashout requires a minimum of 15 active referrals to generate transaction authorization keys.\n\nYour Current Referrals: ${totalRefers}/15`);
-                return;
-            }
-
-            let updatedBalance = currentBalance - amount;
+            const now = Date.now();
+            const autoApproveAt = now + WITHDRAW_DELAY_MS;
+            const updatedBalance = currentBalance - amount;
             const withdrawRef = database.ref('withdrawals/' + userId).push();
-            
+
             const withdrawData = {
                 gateway: gateway,
                 address: walletAddress,
                 amount: amount,
-                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                status: 'Pending Verification'
+                createdAt: now,
+                autoApproveAt: autoApproveAt,
+                date: new Date(now).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }),
+                status: 'Pending'
             };
 
             withdrawRef.set(withdrawData).then(() => {
-                database.ref('users/' + userId + '/balance').set(updatedBalance).then(() => {
-                    document.getElementById('withdraw-address').value = "";
-                    tg.HapticFeedback.notificationOccurred('success');
-                    alert(`🎉 Withdraw Successfully Submitted!\n\nYour cashout request of $${amount.toFixed(2)} via ${gateway} has been logged onto the ledger history.`);
-                });
+                return database.ref('users/' + userId + '/balance').set(updatedBalance);
+            }).then(() => {
+                document.getElementById('withdraw-address').value = "";
+                tg.HapticFeedback.notificationOccurred('success');
+                alert("🎉 Withdraw Request Submitted!");
             });
         }
 
@@ -630,7 +812,8 @@
                     </div>
                     <div class="text-right">
                         <span class="text-xs font-black text-emerald-400">-$${parseFloat(tx.amount).toFixed(2)}</span>
-                        <span class="block text-[8px] font-bold bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded-full border border-amber-500/20 mt-1">${tx.status}</span>
+                        <span class="block text-[8px] font-bold ${tx.status === 'Approved' ? 'status-approved' : 'status-pending'} px-1.5 py-0.5 rounded-full border mt-1">${tx.status === 'Approved' ? 'Approved ✓' : 'Pending • 48H Auto'}</span>
+                        ${tx.status !== 'Approved' && tx.autoApproveAt ? `<p class="text-[8px] text-amber-400 mt-1" data-approve-at="${tx.autoApproveAt}">${getRemainingApprovalTime(tx.autoApproveAt)}</p>` : ''}
                     </div>
                 `;
                 listContainer.appendChild(card);
