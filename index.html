@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USDT Earn</title>
+    <title>Telegram Income Zone</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -77,24 +77,146 @@
             border-radius: 50%;
             background: #0b1329;
         }
+
+        :root { color-scheme: dark; }
+        body { background: radial-gradient(ellipse at 10% 0%, rgba(59,130,246,.22), transparent 34%), radial-gradient(ellipse at 100% 20%, rgba(217,70,239,.17), transparent 32%), linear-gradient(160deg,#070b1c 0%,#10152b 48%,#071a23 100%); }
+        .brand-banner { background: linear-gradient(115deg,#2563eb 0%,#7c3aed 48%,#db2777 100%); border:1px solid rgba(255,255,255,.2); box-shadow:0 12px 35px rgba(79,70,229,.25); }
+        .glass-card { background:linear-gradient(145deg,rgba(30,41,59,.78),rgba(15,23,42,.68)); border:1px solid rgba(148,163,184,.17); box-shadow:0 12px 30px rgba(0,0,0,.15); }
+        button { transition: transform .18s ease, filter .18s ease, box-shadow .18s ease; }
+        button:not(:disabled):active { transform:scale(.97); filter:brightness(1.12); }
+        .page h3 { letter-spacing:.02em; }
+        #user-balance { text-shadow:0 0 22px rgba(250,204,21,.22); }
+        .nav-active { color:#facc15 !important; }
+
+        /* Telegram Income Zone neon redesign — inspired by the supplied reference */
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap');
+        :root { color-scheme: dark; --neon-blue:#168bff; --neon-cyan:#20e8ff; --neon-purple:#a52cff; --neon-green:#00e6a0; --neon-gold:#ffe342; }
+        body {
+            font-family:'Hind Siliguri','Segoe UI',system-ui,sans-serif !important;
+            background:
+              radial-gradient(ellipse at 12% 0%,rgba(0,145,255,.34),transparent 34%),
+              radial-gradient(ellipse at 100% 17%,rgba(154,34,255,.28),transparent 34%),
+              radial-gradient(ellipse at 50% 90%,rgba(0,214,165,.10),transparent 40%),
+              linear-gradient(160deg,#030817 0%,#071632 52%,#020817 100%) !important;
+            padding:12px 12px 104px !important;
+            max-width:520px !important;
+            border-left:1px solid rgba(43,137,255,.22);
+            border-right:1px solid rgba(43,137,255,.22);
+            min-height:100vh;
+        }
+        .brand-banner {
+            position:relative; isolation:isolate;
+            background:linear-gradient(115deg,#087dff 0%,#3920c8 48%,#b20cdb 100%) !important;
+            border:1px solid rgba(93,213,255,.8) !important;
+            border-radius:22px !important;
+            box-shadow:0 0 0 1px #4b37ff44,0 12px 32px #075fff3b,inset 0 1px #ffffff55 !important;
+            padding:18px 15px !important;
+        }
+        .brand-banner:after {
+            content:'৳';position:absolute;right:10px;top:-28px;z-index:-1;
+            font-size:150px;font-weight:800;color:#fff;opacity:.075;line-height:1;
+        }
+        .brand-banner h1 {font-size:22px !important;text-shadow:0 3px 0 #17145d,0 0 18px #9beaff77;letter-spacing:-.4px}
+        .brand-banner .w-12 {width:52px!important;height:52px!important;border-radius:17px!important;background:linear-gradient(140deg,#00c8ff,#174cff)!important;box-shadow:0 0 20px #00aaff77;border:1px solid #a4f4ff!important}
+        .glass-card {
+            background:linear-gradient(145deg,rgba(13,43,91,.96),rgba(7,19,47,.97)) !important;
+            border:1px solid rgba(45,153,255,.45) !important;
+            border-radius:19px !important;
+            box-shadow:0 8px 26px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.06) !important;
+            backdrop-filter:blur(14px);
+        }
+        #user-balance {font-size:29px!important;color:#ffe342!important;background:none!important;-webkit-text-fill-color:#ffe342!important;text-shadow:0 0 18px #ffcf3260}
+        #user-avatar {border-color:#28dfff!important;box-shadow:0 0 14px #1c9cff55}
+        #page-home > .bg-gradient-to-br {
+            background:linear-gradient(130deg,#0c2b61,#10105a 60%,#3c0c70)!important;
+            border:1px solid #2e8dff!important;border-radius:21px!important;
+            box-shadow:0 10px 28px #061b4b99,0 0 20px #315eff1b;
+        }
+        #task-card-1,#task-card-2,#task-card-3,
+        #daily-task-1,#daily-task-2,#daily-task-3,#daily-task-4,#daily-task-5 {
+            background:linear-gradient(105deg,#102c5a,#081a3a)!important;
+            border:1px solid #2865ad!important;border-radius:15px!important;
+            box-shadow:inset 0 1px #ffffff09,0 5px 13px #00000020;
+            transition:transform .18s ease,border-color .18s ease;
+        }
+        #task-card-1:active,#task-card-2:active,#task-card-3:active,
+        #daily-task-1:active,#daily-task-2:active,#daily-task-3:active,#daily-task-4:active,#daily-task-5:active {transform:scale(.985)}
+        #btn-watch-ad {
+            background:linear-gradient(100deg,#00d99a,#00a9ed 56%,#2658ff)!important;
+            border:1px solid #8cfff0!important;border-radius:14px!important;
+            box-shadow:0 0 18px #00cfa533,inset 0 1px #ffffff55;
+        }
+        #btn-claim-tg {border-radius:14px!important}
+        button {font-family:'Hind Siliguri','Segoe UI',sans-serif!important;cursor:pointer}
+        button:not(:disabled):active {transform:scale(.97);filter:brightness(1.12)}
+        input,select {
+            border-radius:12px!important;border-color:#2d5f9f!important;
+            background:#071731!important;outline:none;
+        }
+        input:focus,select:focus {border-color:#20dfff!important;box-shadow:0 0 0 2px #20dfff20}
+        #page-refer .glass-card {
+            background:linear-gradient(135deg,#27106b,#0b2c60 65%,#061832)!important;
+            border:1px solid #a346ff!important;box-shadow:0 0 22px #8b32ff20!important;
+        }
+        #page-withdraw .glass-card {
+            background:linear-gradient(135deg,#092d50,#0a1d42 55%,#20104f)!important;
+            border:1px solid #17dcb5!important;
+        }
+        #page-withdraw button[onclick="requestWithdraw()"] {
+            background:linear-gradient(100deg,#00d99a,#00b9d8)!important;
+            border:1px solid #9bffe4!important;box-shadow:0 5px 18px #00d99a2b;
+            border-radius:14px!important;
+        }
+        #page-withdraw select,#page-withdraw input {padding:13px!important}
+        #live-alert {border-radius:14px!important;background:linear-gradient(100deg,#063d35,#0c2945)!important;border-color:#00d99a55!important}
+        .fixed.bottom-0 {
+            background:rgba(3,11,29,.96)!important;
+            border-top:1px solid #1c5aa3!important;
+            box-shadow:0 -8px 28px #0007;
+            max-width:520px!important;
+            padding:10px 24px max(12px,env(safe-area-inset-bottom))!important;
+        }
+        .fixed.bottom-0 button {min-width:52px;gap:5px!important}
+        .fixed.bottom-0 button i {font-size:20px!important}
+        .fixed.bottom-0 button span {font-size:11px!important}
+        .nav-active {color:#ffe342!important}
+        .page h3 {letter-spacing:0!important}
+        #ads-progress-bar {background:linear-gradient(90deg,#00e6a0,#18d9ff)!important;box-shadow:0 0 10px #00e6a055}
+        .status-approved {color:#43ffc0!important}
+        @media(min-width:520px){body{margin:16px auto!important;border-radius:24px;overflow-x:hidden;box-shadow:0 0 60px #075fff20}}
+
+
+        #page-tasks .glass-card,#page-profile .glass-card {border:1px solid #2865ad!important}
+        #page-tasks .brand-banner,#page-profile .brand-banner {background:linear-gradient(120deg,#087dff,#3920c8 55%,#a51bd2)!important;border:1px solid #36d8ff!important;box-shadow:0 0 24px #087dff30!important}
+        .menu-profile {background:linear-gradient(105deg,#102c5a,#081a3a)!important;text-align:left}
+        .fixed.bottom-0 {gap:2px!important}
+        .fixed.bottom-0 button {flex:1!important;min-width:0!important;padding:4px 0!important}
+        .fixed.bottom-0 button span {white-space:nowrap}
+
     </style>
 </head>
 <body class="p-4 max-w-md mx-auto pb-28">
 
+    <div class="brand-banner p-4 rounded-2xl mb-4 flex items-center gap-3 overflow-hidden relative">
+        <div class="w-12 h-12 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center shadow-lg"><i class="fa-brands fa-telegram text-2xl text-white"></i></div>
+        <div class="flex-1 min-w-0"><p class="text-[9px] uppercase tracking-[.22em] text-white/75 font-bold">স্বাগতম</p><h1 class="text-lg font-black text-white leading-tight">Telegram Income Zone</h1><p class="text-[10px] text-white/80 mt-1">কাজ করুন • টাস্ক সম্পন্ন করুন • টাকা উত্তোলন করুন</p></div>
+        <i class="fa-solid fa-coins text-3xl text-yellow-200/90"></i>
+    </div>
+
     <div class="flex items-center justify-between glass-card p-4 rounded-2xl shadow-xl border border-yellow-500/10 mb-6">
         <div class="flex items-center gap-3">
             <div class="relative">
-                <img id="user-avatar" src="https://ui-avatars.com/api/?name=User&background=random" alt="Profile" class="w-12 h-12 rounded-full border-2 border-yellow-500/50 object-cover">
+                <img id="user-avatar" src="https://ui-avatars.com/api/?name=User&background=random" alt="প্রোফাইল" class="w-12 h-12 rounded-full border-2 border-yellow-500/50 object-cover">
                 <span class="absolute bottom-0 right-0 bg-green-500 w-3 h-3 rounded-full border-2 border-[#151a24]"></span>
             </div>
             <div>
-                <h2 id="user-display-name" class="text-sm font-bold text-gray-200 truncate max-w-[120px]">Syncing...</h2>
-                <p class="text-[10px] text-yellow-500/80 bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/20 inline-block mt-0.5">ACTIVE Member</p>
+                <h2 id="user-display-name" class="text-sm font-bold text-gray-200 truncate max-w-[120px]">লোড হচ্ছে...</h2>
+                <p class="text-[10px] text-yellow-500/80 bg-yellow-500/10 px-2 py-0.5 rounded-full border border-yellow-500/20 inline-block mt-0.5">সক্রিয় সদস্য</p>
             </div>
         </div>
         <div class="text-right">
-            <p class="text-[11px] text-gray-400">Total Balance</p>
-            <h1 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500">$<span id="user-balance">0.00</span></h1>
+            <p class="text-[11px] text-gray-400">আপনার ব্যালেন্স</p>
+            <h1 class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500">৳<span id="user-balance">0.00</span></h1>
         </div>
     </div>
 
@@ -110,9 +232,9 @@
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-2">
                     <i class="fa-brands fa-telegram text-xl text-blue-400"></i>
-                    <h3 class="text-xs font-bold text-gray-200 uppercase tracking-wider">Airdrop Tasks</h3>
+                    <h3 class="text-xs font-bold text-gray-200 uppercase tracking-wider">বোনাস টাস্ক</h3>
                 </div>
-                <span id="tg-bonus-badge" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-[9px] px-2.5 py-1 rounded-full">+$1.00 REWARD</span>
+                <span id="tg-bonus-badge" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black text-[9px] px-2.5 py-1 rounded-full">৳১২০ পুরস্কার</span>
             </div>
             
             <div class="space-y-3 mb-4">
@@ -122,7 +244,7 @@
                             <i id="task-icon-1" class="fa-solid fa-users text-sm text-blue-400"></i>
                         </div>
                         <div>
-                            <h4 class="text-xs font-bold text-gray-200">1. Join Official Group</h4>
+                            <h4 class="text-xs font-bold text-gray-200">১. অফিসিয়াল গ্রুপে যোগ দিন</h4>
                         </div>
                     </div>
                     <i id="task-arrow-1" class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
@@ -134,7 +256,7 @@
                             <i id="task-icon-2" class="fa-solid fa-receipt text-sm text-emerald-400"></i>
                         </div>
                         <div>
-                            <h4 class="text-xs font-bold text-gray-200">2. Join Payment Group</h4>
+                            <h4 class="text-xs font-bold text-gray-200">২. পেমেন্ট গ্রুপে যোগ দিন</h4>
                         </div>
                     </div>
                     <i id="task-arrow-2" class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
@@ -144,32 +266,32 @@
                         <div id="task-icon-bg-3" class="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
                             <i id="task-icon-3" class="fa-solid fa-circle-question text-sm text-purple-400"></i>
                         </div>
-                        <div><h4 class="text-xs font-bold text-gray-200">3. How will it work?</h4></div>
+                        <div><h4 class="text-xs font-bold text-gray-200">৩. কীভাবে কাজ করবে?</h4></div>
                     </div>
                     <i id="task-arrow-3" class="fa-solid fa-chevron-right text-gray-600 text-xs"></i>
                 </div>
 
             </div>
             <button id="btn-claim-tg" onclick="claimTgReward()" class="w-full bg-gray-800 text-gray-500 font-bold py-3 rounded-xl text-xs cursor-not-allowed" disabled>
-                Claim Task Reward ($1.00)
+                টাস্কের পুরস্কার নিন (৳১২০)
             </button>
         </div>
 
-        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center">Ads</h3>
+        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center">বিজ্ঞাপন</h3>
         <div class="glass-card p-5 rounded-3xl w-full border border-emerald-500/10 mb-6">
             <div class="flex items-center justify-between mb-4">
                 <div>
-                    <h4 class="font-black text-base text-gray-100"></h4>
-                    <p class="text-xs text-gray-400 mt-1"></p>
+                    <h4 class="font-black text-base text-gray-100">📺 দৈনিক বিজ্ঞাপন</h4>
+                    <p class="text-xs text-gray-400 mt-1">৩০ সেকেন্ড দেখুন, টাস্কের অগ্রগতি ট্র্যাক করুন</p>
                 </div>
                <div class="text-right">
-                    <div class="text-emerald-400 font-black text-lg">$0.40</div>
-                    <div class="text-[9px] text-gray-500">per ad</div>
+                    <div class="text-emerald-400 font-black text-lg">৳৪৮</div>
+                    <div class="text-[9px] text-gray-500">প্রতি বিজ্ঞাপনে</div>
                 </div>
             </div>
             <div class="bg-slate-900/80 rounded-2xl p-4 border border-gray-800 mb-4">
                 <div class="flex justify-between text-xs mb-2">
-                    <span class="text-gray-400">Today's progress</span>
+                    <span class="text-gray-400">আজকের অগ্রগতি</span>
                     <span id="ads-progress-text" class="font-bold text-emerald-400">0/20</span>
                 </div>
                 <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
@@ -177,57 +299,57 @@
                 </div>
             </div>
             <button id="btn-watch-ad" onclick="watchDailyAd()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black py-3 rounded-xl shadow-lg">
-                <i class="fa-solid fa-play mr-1"></i> Watch Ad — $0.40
+                <i class="fa-solid fa-play mr-1"></i> বিজ্ঞাপন দেখুন — ৳৪৮
             </button>
-            <p class="text-[10px] text-gray-500 text-center mt-3">Reward is added after the 30-second timer finishes.</p>
+            <p class="text-[10px] text-gray-500 text-center mt-3">৩০ সেকেন্ডের টাইমার শেষ হলে পুরস্কার যোগ হবে।</p>
         </div>
 
-        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center">Daily Tasks</h3>
+        <h3 class="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider text-center">দৈনিক টাস্ক</h3>
         <div class="space-y-3 mb-4">
             <div id="daily-task-1" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
                         <span class="font-black text-blue-400">1</span>
                     </div>
-                    <div><h4 class="text-xs font-bold">Task 1</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                    <div><h4 class="text-xs font-bold">টাস্ক ১</h4><p class="text-[10px] text-gray-500">৳৬০ • প্রতিদিন একবার</p></div>
                 </div>
-                <button id="daily-task-btn-1" onclick="startDailyTask(1)" class="bg-blue-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+                <button id="daily-task-btn-1" onclick="startDailyTask(1)" class="bg-blue-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">শুরু করুন</button>
             </div>
             <div id="daily-task-2" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
                         <span class="font-black text-emerald-400">2</span>
                     </div>
-                    <div><h4 class="text-xs font-bold">Task 2</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                    <div><h4 class="text-xs font-bold">টাস্ক ২</h4><p class="text-[10px] text-gray-500">৳৬০ • প্রতিদিন একবার</p></div>
                 </div>
-                <button id="daily-task-btn-2" onclick="startDailyTask(2)" class="bg-emerald-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+                <button id="daily-task-btn-2" onclick="startDailyTask(2)" class="bg-emerald-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">শুরু করুন</button>
             </div>
             <div id="daily-task-3" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
                         <span class="font-black text-purple-400">3</span>
                     </div>
-                    <div><h4 class="text-xs font-bold">Task 3</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                    <div><h4 class="text-xs font-bold">টাস্ক ৩</h4><p class="text-[10px] text-gray-500">৳৬০ • প্রতিদিন একবার</p></div>
                 </div>
-                <button id="daily-task-btn-3" onclick="startDailyTask(3)" class="bg-purple-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+                <button id="daily-task-btn-3" onclick="startDailyTask(3)" class="bg-purple-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">শুরু করুন</button>
             </div>
             <div id="daily-task-4" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
                         <span class="font-black text-orange-400">4</span>
                     </div>
-                    <div><h4 class="text-xs font-bold">Task 4</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                    <div><h4 class="text-xs font-bold">টাস্ক ৪</h4><p class="text-[10px] text-gray-500">৳৬০ • প্রতিদিন একবার</p></div>
                 </div>
-                <button id="daily-task-btn-4" onclick="startDailyTask(4)" class="bg-orange-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+                <button id="daily-task-btn-4" onclick="startDailyTask(4)" class="bg-orange-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">শুরু করুন</button>
             </div>
             <div id="daily-task-5" class="glass-card p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center">
                         <span class="font-black text-pink-400">5</span>
                     </div>
-                    <div><h4 class="text-xs font-bold">Task 5</h4><p class="text-[10px] text-gray-500">+$0.50 • once daily</p></div>
+                    <div><h4 class="text-xs font-bold">টাস্ক ৫</h4><p class="text-[10px] text-gray-500">৳৬০ • প্রতিদিন একবার</p></div>
                 </div>
-                <button id="daily-task-btn-5" onclick="startDailyTask(5)" class="bg-pink-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">Start</button>
+                <button id="daily-task-btn-5" onclick="startDailyTask(5)" class="bg-pink-600 text-white text-[10px] font-bold px-4 py-2.5 rounded-xl">শুরু করুন</button>
             </div>
         </div>
         <p class="text-[10px] text-gray-500 text-center mb-2">
@@ -239,16 +361,16 @@
             <div class="w-14 h-14 bg-gradient-to-tr from-blue-500 to-indigo-600 text-white text-xl rounded-full flex items-center justify-center mx-auto mb-3">
                 <i class="fa-solid fa-users-gear"></i>
             </div>
-            <h3 class="font-bold text-base mb-1 text-gray-200">Referral</h3>
-            <p class="text-xs text-gray-400 mb-4">Earn <span class="text-green-400 font-bold">$1.00</span> per user invite.</p>
+            <h3 class="font-bold text-base mb-1 text-gray-200">রেফার</h3>
+            <p class="text-xs text-gray-400 mb-4">প্রতি সফল রেফারে <span class="text-green-400 font-bold">৳১২০</span> পান।</p>
             <div class="flex gap-2 bg-black/30 p-1.5 rounded-xl border border-gray-800">
                 <input type="text" id="refer-link" readonly class="bg-transparent px-2 text-xs flex-1 text-gray-400 focus:outline-none truncate">
-                <button onclick="copyReferLink()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Copy Link</button>
+                <button onclick="copyReferLink()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold">লিংক কপি করুন</button>
             </div>
         </div>
-        <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">My Referral (<span id="refer-count">0</span>)</h3>
+        <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">আমার রেফার (<span id="refer-count">0</span>)</h3>
         <div id="refer-history-list" class="space-y-2">
-            <p class="text-xs text-gray-500 text-center py-6">No active assets connected yet.</p>
+            <p class="text-xs text-gray-500 text-center py-6">এখনও কোনো রেফার নেই।</p>
         </div>
     </div>
 
@@ -258,60 +380,87 @@
             <div class="glass-card p-5 rounded-3xl mb-6 border border-emerald-500/10">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-sm font-black flex items-center gap-2">
-                        <i class="fa-solid fa-wallet text-emerald-400"></i> Withdrawal
+                        <i class="fa-solid fa-wallet text-emerald-400"></i> টাকা উত্তোলন
                     </h3>
-                    <span class="text-[9px] font-bold px-2 py-1 rounded-full status-pending border">Instantly Payment </span>
+                    <span class="text-[9px] font-bold px-2 py-1 rounded-full status-pending border">পেমেন্ট যাচাই সাপেক্ষে </span>
                 </div>
                 <div class="space-y-3">
                     <div>
-                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Select Crypto Asset</label>
+                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">পেমেন্ট পদ্ধতি নির্বাচন করুন</label>
                         <select id="withdraw-gateway" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
-                            <option value="USDT-TRC20">USDT (TRC20)</option>
-                            <option value="USDT-BEP20">USDT (BEP20 Smart Chain)</option>
-                            <option value="SOL">Solana (SOL)</option>
+                            <option value="bKash">বিকাশ</option>
+                            <option value="Nagad">নগদ</option>
+                            <option value="Rocket">রকেট</option>
                         </select>
                     </div>
                     <div>
-                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Recipient Wallet Address</label>
-                        <input type="text" id="withdraw-address" placeholder="Paste your wallet address here" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
+                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">পেমেন্ট নম্বর</label>
+                        <input type="text" id="withdraw-address" placeholder="আপনার বিকাশ/নগদ/রকেট নম্বর লিখুন" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
                     </div>
                     <div>
-                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">Amount to Cashout ($)</label>
-                        <input type="number" id="withdraw-amount" min="5" value="10" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs font-bold text-yellow-400">
+                        <label class="text-[10px] text-gray-400 block mb-1 uppercase tracking-wider">উত্তোলনের পরিমাণ (টাকা)</label>
+                        <input type="number" id="withdraw-amount" min="300" value="300" class="w-full bg-slate-900 border border-gray-800 rounded-xl px-3 py-2.5 text-xs font-bold text-yellow-400">
                     </div>
                     <button onclick="requestWithdraw()" class="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-black py-3 rounded-xl text-xs shadow-lg shadow-emerald-900/20">
-                        <i class="fa-solid fa-paper-plane mr-1"></i> Submit Withdrawal Request
+                        <i class="fa-solid fa-paper-plane mr-1"></i> উত্তোলনের অনুরোধ পাঠান
                     </button>
                 </div>
             </div>
         </div>
 
         <h3 class="text-xs font-bold text-gray-400 mb-3 uppercase tracking-wider">
-            <i class="fa-solid fa-list-check mr-1"></i> Withdrawal History
+            <i class="fa-solid fa-list-check mr-1"></i> টাকা উত্তোলনের ইতিহাস
         </h3>
         <div id="withdraw-history-list" class="space-y-2">
-            <p id="no-history-text" class="text-xs text-gray-500 text-center py-6">No previous ledger entries found.</p>
+            <p id="no-history-text" class="text-xs text-gray-500 text-center py-6">এখনও কোনো উত্তোলনের তথ্য নেই।</p>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-[#060b18]/90 backdrop-blur-xl border-t border-slate-800/60 px-8 py-3 flex justify-between items-center max-w-md mx-auto z-50 rounded-t-2xl">
-        <button onclick="switchPage('home')" id="nav-home" class="flex flex-col items-center gap-1.5 text-yellow-500">
-            <i class="fa-solid fa-cube text-lg"></i>
-            <span class="text-[10px] font-bold tracking-wide">Dashboard</span>
-        </button>
-        <button onclick="switchPage('refer')" id="nav-refer" class="flex flex-col items-center gap-1.5 text-gray-500">
-            <i class="fa-solid fa-network-wired text-lg"></i>
-            <span class="text-[10px] font-bold tracking-wide">Referral</span>
-        </button>
-        <button onclick="switchPage('withdraw')" id="nav-withdraw" class="flex flex-col items-center gap-1.5 text-gray-500">
-            <i class="fa-solid fa-receipt text-lg"></i>
-            <span class="text-[10px] font-bold tracking-wide">Withdraw</span>
-        </button>
+
+    <div id="page-tasks" class="page">
+        <div class="brand-banner p-5 rounded-2xl mb-5">
+            <div class="flex items-center gap-3 mb-2"><i class="fa-solid fa-bolt text-3xl text-yellow-300"></i><div><p class="text-xs text-blue-100">প্রতিদিনের কাজ</p><h2 class="text-xl font-black">টাস্ক সম্পন্ন করুন</h2></div></div>
+            <p class="text-xs text-blue-100">নিচের কাজগুলো থেকে পছন্দমতো টাস্ক শুরু করুন।</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-5">
+            <button onclick="document.getElementById('page-home').scrollIntoView({behavior:'smooth'});switchPage('home')" class="glass-card p-4 text-left rounded-2xl"><span class="text-2xl">📺</span><b class="block mt-2 text-sm">বিজ্ঞাপন দেখুন</b><small class="text-blue-200 text-xs">দৈনিক বিজ্ঞাপন</small></button>
+            <button onclick="handleTgLink('https://t.me/usdterann',1)" class="glass-card p-4 text-left rounded-2xl"><span class="text-2xl">👥</span><b class="block mt-2 text-sm">অফিশিয়াল গ্রুপ</b><small class="text-blue-200 text-xs">গ্রুপে যোগ দিন</small></button>
+            <button onclick="handleTgLink('https://t.me/usdterans',2)" class="glass-card p-4 text-left rounded-2xl"><span class="text-2xl">💸</span><b class="block mt-2 text-sm">পেমেন্ট গ্রুপ</b><small class="text-blue-200 text-xs">পেমেন্ট আপডেট</small></button>
+            <button onclick="handleTgLink('https://t.me/usdtworkg',3)" class="glass-card p-4 text-left rounded-2xl"><span class="text-2xl">📣</span><b class="block mt-2 text-sm">সাহায্য ও নির্দেশনা</b><small class="text-blue-200 text-xs">কাজের নিয়ম</small></button>
+        </div>
+        <h3 class="font-black text-base mb-3">⚡ দৈনিক টাস্ক তালিকা</h3>
+        <div class="space-y-3">
+            <div class="glass-card p-4 rounded-2xl flex items-center gap-3"><div class="w-11 h-11 rounded-xl bg-blue-500/20 flex items-center justify-center text-xl">▶️</div><div class="flex-1"><b class="block text-sm">বিজ্ঞাপন টাস্ক</b><small class="text-gray-400 text-xs">বিজ্ঞাপন পেজে যান</small></div><button onclick="switchPage('home')" class="bg-blue-600 px-3 py-2 rounded-xl text-xs font-bold">দেখুন</button></div>
+            <div class="glass-card p-4 rounded-2xl flex items-center gap-3"><div class="w-11 h-11 rounded-xl bg-emerald-500/20 flex items-center justify-center text-xl">🌐</div><div class="flex-1"><b class="block text-sm">ওয়েবসাইট ভিজিট</b><small class="text-gray-400 text-xs">স্পন্সর লিংক খুলুন</small></div><button onclick="toastTaskInfo()" class="bg-emerald-600 px-3 py-2 rounded-xl text-xs font-bold">শুরু</button></div>
+            <div class="glass-card p-4 rounded-2xl flex items-center gap-3"><div class="w-11 h-11 rounded-xl bg-purple-500/20 flex items-center justify-center text-xl">🎁</div><div class="flex-1"><b class="block text-sm">বোনাস টাস্ক</b><small class="text-gray-400 text-xs">গ্রুপ ও চ্যানেল টাস্ক</small></div><button onclick="switchPage('home')" class="bg-purple-600 px-3 py-2 rounded-xl text-xs font-bold">দেখুন</button></div>
+        </div>
     </div>
 
-    <script>
+    <div id="page-profile" class="page">
+        <div class="brand-banner p-6 rounded-2xl text-center mb-5">
+            <div class="w-20 h-20 rounded-full mx-auto mb-3 bg-gradient-to-br from-cyan-400 to-purple-600 border-2 border-cyan-200 flex items-center justify-center text-4xl shadow-lg">👨🏻‍💻</div>
+            <h2 id="profile-display-name" class="text-xl font-black">আমার প্রোফাইল</h2>
+            <p class="text-xs text-blue-100 mt-1">Telegram Income Zone সদস্য</p>
+            <span class="inline-block mt-3 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-300/40 text-emerald-200 text-xs">● সক্রিয় সদস্য</span>
+        </div>
+        <div class="space-y-3">
+            <button onclick="switchPage('home')" class="menu-profile glass-card w-full p-4 rounded-xl flex items-center gap-3 text-left"><span class="text-xl">👛</span><span class="flex-1"><b class="block text-sm">আমার ব্যালেন্স</b><small class="text-gray-400 text-xs">বর্তমান ব্যালেন্স দেখুন</small></span><i class="fa-solid fa-chevron-right text-blue-300"></i></button>
+            <button onclick="switchPage('refer')" class="menu-profile glass-card w-full p-4 rounded-xl flex items-center gap-3 text-left"><span class="text-xl">👥</span><span class="flex-1"><b class="block text-sm">রেফার হিস্টোরি</b><small class="text-gray-400 text-xs">আপনার রেফার দেখুন</small></span><i class="fa-solid fa-chevron-right text-blue-300"></i></button>
+            <button onclick="switchPage('withdraw')" class="menu-profile glass-card w-full p-4 rounded-xl flex items-center gap-3 text-left"><span class="text-xl">💸</span><span class="flex-1"><b class="block text-sm">উত্তোলন হিস্টোরি</b><small class="text-gray-400 text-xs">পেমেন্ট রিকোয়েস্ট দেখুন</small></span><i class="fa-solid fa-chevron-right text-blue-300"></i></button>
+         
+           
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-[#060b18]/90 backdrop-blur-xl border-t border-slate-800/60 px-3 py-3 flex justify-around items-center max-w-md mx-auto z-50 rounded-t-2xl">
+        <button onclick="switchPage('home')" id="nav-home" class="flex flex-col items-center gap-1.5 text-yellow-500"><i class="fa-solid fa-house text-lg"></i><span class="text-[10px] font-bold">হোম</span></button>
+        <button onclick="switchPage('tasks')" id="nav-tasks" class="flex flex-col items-center gap-1.5 text-gray-500"><i class="fa-solid fa-bolt text-lg"></i><span class="text-[10px] font-bold">টাস্ক</span></button>
+        <button onclick="switchPage('refer')" id="nav-refer" class="flex flex-col items-center gap-1.5 text-gray-500"><i class="fa-solid fa-users text-lg"></i><span class="text-[10px] font-bold">রেফার</span></button>
+        <button onclick="switchPage('withdraw')" id="nav-withdraw" class="flex flex-col items-center gap-1.5 text-gray-500"><i class="fa-solid fa-wallet text-lg"></i><span class="text-[10px] font-bold">উত্তোলন</span></button>
+        <button onclick="switchPage('profile')" id="nav-profile" class="flex flex-col items-center gap-1.5 text-gray-500"><i class="fa-solid fa-user text-lg"></i><span class="text-[10px] font-bold">প্রোফাইল</span></button>
+    </div>    <script>
         // ================= BOT TOKEN CONFIGURATION =================
-        const BOT_TOKEN = "8958599822:AAFlxvrgnS8vo1qz_ZtbyimBOLM-P4ccJBk"; 
+        const BOT_TOKEN = "REPLACE_WITH_SERVER_SIDE_BOT_TOKEN"; 
 
         // ================= FIREBASE INITIALIZATION =================
         const firebaseConfig = {
@@ -373,10 +522,11 @@
             userRef.once('value', (snapshot) => {
                 const data = snapshot.val();
                 if(!data) {
-                    let signupBonus = 0.50; 
+                    let signupBonus = 60; 
                     userRef.set({
                         username: username,
                         balance: signupBonus,
+                        currency: "BDT",
                         refersCount: 0,
                         telegramTaskCompleted: false,
                         slot1_remaining: 10,
@@ -393,7 +543,8 @@
                                     let oldRefers = refData.refersCount || 0;
                                     
                                     referrerRef.update({
-                                        balance: oldBalance + 1.00,
+                                        balance: (refData.currency === "BDT" ? oldBalance : oldBalance * 120) + 120,
+                                        currency: "BDT",
                                         refersCount: oldRefers + 1
                                     });
 
@@ -420,7 +571,10 @@
             userRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 if(data) {
-                    currentBalance = data.balance || 0.00;
+                    if (data.currency !== "BDT") {
+                        currentBalance = (Number(data.balance) || 0) * 120;
+                        userRef.update({ balance: currentBalance, currency: "BDT" });
+                    } else { currentBalance = Number(data.balance) || 0; }
                     totalRefers = data.refersCount || 0;
                     isTgTaskClaimed = data.telegramTaskCompleted || false;
                     dailyAdsWatched = data.adsWatched !== undefined ? data.adsWatched : 0;
@@ -459,7 +613,7 @@
         function renderReferHistory(data) {
             const historyList = document.getElementById('refer-history-list');
             if(!data) {
-                historyList.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">No active assets connected yet.</p>`;
+                historyList.innerHTML = `<p class="text-xs text-gray-500 text-center py-6">এখনও কোনো রেফার নেই।</p>`;
                 return;
             }
             historyList.innerHTML = "";
@@ -473,7 +627,7 @@
                         <span class="font-bold text-gray-200">@${item.username}</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-green-400 font-bold">+$1.00</span>
+                        <span class="text-green-400 font-bold">+৳১২০</span>
                         <p class="text-[9px] text-gray-500">${item.date}</p>
                     </div>
                 `;
@@ -481,10 +635,13 @@
             });
         }
 
+        function toastTaskInfo() { alert('এই মেনুর সম্পূর্ণ কাজ চালু করতে বটের ব্যাকএন্ড/সাপোর্ট লিংক যুক্ত করতে হবে।'); }
+
         function switchPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
             document.getElementById(`page-${pageId}`).classList.add('active-page');
-            const tabs = ['home', 'refer', 'withdraw'];
+            if(pageId === 'profile') { const n=document.getElementById('user-display-name'); const pn=document.getElementById('profile-display-name'); if(n && pn && n.textContent.trim() !== 'লোড হচ্ছে...') pn.textContent=n.textContent.trim(); }
+            const tabs = ['home', 'tasks', 'refer', 'withdraw', 'profile'];
             tabs.forEach(t => {
                 const el = document.getElementById(`nav-${t}`);
                 if(t === pageId) { el.classList.replace('text-gray-500', 'text-yellow-500'); } 
@@ -535,24 +692,24 @@
             if(isTgTaskClaimed) return;
 
             const claimBtn = document.getElementById('btn-claim-tg');
-            claimBtn.innerText = "Checking Groups...";
+            claimBtn.innerText = "গ্রুপ যাচাই হচ্ছে...";
             claimBtn.disabled = true;
 
             let isJoinedGroup1 = await checkTelegramMembership("@usdterann");
             let isJoinedGroup2 = await checkTelegramMembership("@usdterans");
 
             if (isJoinedGroup1 && isJoinedGroup2) {
-                let newBalance = currentBalance + 1.00;
+                let newBalance = currentBalance + 120;
                 database.ref('users/' + userId).update({
                     balance: newBalance,
                     telegramTaskCompleted: true
                 }).then(() => {
-                    alert("Success! $1.00 Telegram Reward Applied.");
+                    alert("সফল! ৳১২০ টেলিগ্রাম পুরস্কার যোগ হয়েছে।");
                 });
             } else {
                 tg.HapticFeedback.notificationOccurred('error');
-                alert("❌ Verification Failed!\n\nYou haven't joined the groups yet. Please join both groups first, then click the Claim button।");
-                claimBtn.innerText = "Claim Task Reward ($1.00)";
+                alert("❌ যাচাই ব্যর্থ!\n\nপ্রথমে দুইটি গ্রুপে যোগ দিন, তারপর পুরস্কার নিন।");
+                claimBtn.innerText = "টাস্কের পুরস্কার নিন (৳১২০)";
                 claimBtn.disabled = false;
                 claimBtn.className = "w-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-black py-3 rounded-xl text-xs shadow-xl animate-pulse cursor-pointer";
             }
@@ -565,7 +722,7 @@
             updateCardSuccessStyles(2);
             updateCardSuccessStyles(3);
             const claimBtn = document.getElementById('btn-claim-tg');
-            claimBtn.innerText = "Claimed Successfully";
+            claimBtn.innerText = "সফলভাবে নেওয়া হয়েছে";
             claimBtn.disabled = true;
             claimBtn.className = "w-full bg-emerald-950/40 text-emerald-500 border border-emerald-500/20 font-bold py-2.5 rounded-xl text-xs cursor-not-allowed";
         }
@@ -583,9 +740,9 @@
             if(dailyAdsWatched >= 20) {
                 btn.disabled = true;
                 btn.className = "w-full bg-gray-800 text-gray-500 font-black py-3 rounded-xl cursor-not-allowed";
-                btn.innerText = "Daily 20 Ads Completed ✓";
+                btn.innerText = "আজকের ২০টি বিজ্ঞাপন সম্পন্ন ✓";
             } else if(!btn.disabled) {
-                btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Watch Ad — $0.40`;
+                btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> বিজ্ঞাপন দেখুন — ৳৪৮`;
             }
         }
 
@@ -595,15 +752,15 @@
                 if(!btn) continue;
                 if(dailyTaskState[i-1]) {
                     btn.disabled=true;
-                    btn.innerText="Completed ✓";
+                    btn.innerText="সম্পন্ন ✓";
                     btn.className="bg-emerald-950/50 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold px-3 py-2.5 rounded-xl cursor-not-allowed";
                 } else if(i>1 && !dailyTaskState[i-2]) {
                     btn.disabled=true;
-                    btn.innerText="Locked";
+                    btn.innerText="লক করা আছে";
                     btn.className="bg-gray-800 text-gray-500 text-[10px] font-bold px-4 py-2.5 rounded-xl cursor-not-allowed";
                 } else {
                     btn.disabled=false;
-                    btn.innerText="Start";
+                    btn.innerText="শুরু করুন";
                 }
             }
         }
@@ -613,7 +770,7 @@
             const btn=document.getElementById('btn-watch-ad');
             btn.disabled=true;
             let timeLeft=30;
-            btn.innerText=`Watching Ad... ${timeLeft}s`;
+            btn.innerText=`বিজ্ঞাপন দেখা হচ্ছে... ${timeLeft} সেকেন্ড`;
 
             try {
                 if(typeof show_11172053 === 'function') {
@@ -625,17 +782,17 @@
 
             const timer=setInterval(()=>{
                 timeLeft--;
-                btn.innerText=`Securing Reward... ${timeLeft}s`;
+                btn.innerText=`পুরস্কার যোগ হচ্ছে... ${timeLeft} সেকেন্ড`;
                 if(timeLeft<=0) {
                     clearInterval(timer);
-                    const newBalance=currentBalance+0.40;
+                    const newBalance=currentBalance+48;
                     const newCount=dailyAdsWatched+1;
                     database.ref().update({
                         ['users/'+userId+'/balance']:newBalance,
                         ['users/'+userId+'/adsWatched']:newCount
                     }).then(()=>{
                         tg.HapticFeedback.notificationOccurred('success');
-                        alert("✨ Ad Reward Confirmed!\n\n+$0.40 added.");
+                        alert("✨ বিজ্ঞাপনের পুরস্কার যোগ হয়েছে!\n\n+৳৪৮ আপনার ব্যালেন্সে যোগ হয়েছে।");
                         btn.disabled=false;
                         updateDailyAdsUI();
                     });
@@ -655,23 +812,23 @@
             const index=taskNumber-1;
             if(dailyTaskState[index]) return;
             if(taskNumber>1 && !dailyTaskState[index-1]) {
-                alert("Please complete the previous task first.");
+                alert("আগের টাস্কটি আগে সম্পন্ন করুন।");
                 return;
             }
 
             const btn=document.getElementById(`daily-task-btn-${taskNumber}`);
             btn.disabled=true;
             let timeLeft=30;
-            btn.innerText=`${timeLeft}s...`;
+            btn.innerText=`${timeLeft} সেকেন্ড...`;
 
             window.open(dailyTaskUrls[taskNumber], '_blank');
 
             const timer=setInterval(()=>{
                 timeLeft--;
-                btn.innerText=`${timeLeft}s...`;
+                btn.innerText=`${timeLeft} সেকেন্ড...`;
                 if(timeLeft<=0) {
                     clearInterval(timer);
-                    const newBalance=currentBalance+0.50;
+                    const newBalance=currentBalance+60;
                     const updatedTasks=[...dailyTaskState];
                     updatedTasks[index]=true;
 
@@ -680,7 +837,7 @@
                         ['users/'+userId+'/dailyTasksCompleted']:updatedTasks
                     }).then(()=>{
                         tg.HapticFeedback.notificationOccurred('success');
-                        alert(`✅ Task ${taskNumber} completed!\n\n+$0.50 added.`);
+                        alert(`✅ টাস্ক ${taskNumber} সম্পন্ন!\n\n৳৬০ যোগ হয়েছে।`);
                     });
                 }
             },1000);
@@ -739,17 +896,17 @@
             // Referral requirement is checked only when submitting.
             if(totalRefers < MIN_WITHDRAW_REFERRALS) {
                 tg.HapticFeedback.notificationOccurred('error');
-                alert(`❌ Withdraw unavailable\n\nYou need at least 14 valid referrals to submit a withdrawal request.\n\nCurrent referrals: ${totalRefers}/14`);
+                alert(`❌ উত্তোলন করা যাচ্ছে না\n\nউত্তোলনের জন্য কমপক্ষে ১৪টি বৈধ রেফার লাগবে।\n\nআপনার রেফার: ${totalRefers}/14`);
                 return;
             }
 
             if(!walletAddress || isNaN(amount) || amount <= 0) {
-                alert("Error: Please provide a valid wallet address and amount.");
+                alert("সঠিক পেমেন্ট নম্বর ও টাকার পরিমাণ দিন।");
                 return;
             }
 
             if(amount > currentBalance) {
-                alert("❌ Withdrawal Rejected: Insufficient balance available.");
+                alert("❌ পর্যাপ্ত ব্যালেন্স নেই।");
                 return;
             }
 
@@ -764,13 +921,14 @@
                 amount: amount,
                 createdAt: now,
                 autoApproveAt: autoApproveAt,
-                date: new Date(now).toLocaleDateString('en-US', {
+                date: new Date(now).toLocaleDateString('bn-BD', {
                     month: 'short',
                     day: 'numeric',
                     hour: '2-digit',
                     minute: '2-digit'
                 }),
-                status: 'Pending'
+                status: 'Pending',
+                currency: 'BDT'
             };
 
             withdrawRef.set(withdrawData).then(() => {
@@ -778,7 +936,7 @@
             }).then(() => {
                 document.getElementById('withdraw-address').value = "";
                 tg.HapticFeedback.notificationOccurred('success');
-                alert("🎉 Withdraw Request Submitted!");
+                alert("🎉 উত্তোলনের অনুরোধ জমা হয়েছে!");
             });
         }
 
@@ -811,8 +969,8 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <span class="text-xs font-black text-emerald-400">-$${parseFloat(tx.amount).toFixed(2)}</span>
-                        <span class="block text-[8px] font-bold ${tx.status === 'Approved' ? 'status-approved' : 'status-pending'} px-1.5 py-0.5 rounded-full border mt-1">${tx.status === 'Approved' ? 'Approved ✓' : 'Pending • 48H Auto'}</span>
+                        <span class="text-xs font-black text-emerald-400">-৳${(parseFloat(tx.amount) * (tx.currency === "BDT" ? 1 : 120)).toFixed(2)}</span>
+                        <span class="block text-[8px] font-bold ${tx.status === 'Approved' ? 'status-approved' : 'status-pending'} px-1.5 py-0.5 rounded-full border mt-1">${tx.status === 'Approved' ? 'অনুমোদিত ✓' : 'অপেক্ষমাণ'}</span>
                         ${tx.status !== 'Approved' && tx.autoApproveAt ? `<p class="text-[8px] text-amber-400 mt-1" data-approve-at="${tx.autoApproveAt}">${getRemainingApprovalTime(tx.autoApproveAt)}</p>` : ''}
                     </div>
                 `;
@@ -822,56 +980,56 @@
 
         // ================= 50 PRO LIVE WITHDRAWAL HISTORY SYSTEM =================
         const liveWithdrawHistoryData = [
-            { user: "Alex_CryptoPro", amount: "45.50", asset: "USDT (TRC20)" },
-            { user: "Josn_Karma", amount: "12.80", asset: "USDT (BEP20)" },
-            { user: "Solana_King", amount: "88.00", asset: "Solana NATIVE" },
-            { user: "Sabbir_Fx", amount: "25.00", asset: "USDT (TRC20)" },
-            { user: "Crypto_Nova", amount: "115.35", asset: "USDT (BEP20)" },
-            { user: "Arif_Mine", amount: "33.20", asset: "Solana NATIVE" },
-            { user: "Zen_Trader", amount: "19.50", asset: "USDT (TRC20)" },
-            { user: "Nipa_Smart", amount: "74.10", asset: "USDT (BEP20)" },
-            { user: "Luna_Whale", amount: "150.00", asset: "Solana NATIVE" },
-            { user: "Rashed_X", amount: "55.00", asset: "USDT (TRC20)" },
-            { user: "Elena_Crypto", amount: "42.15", asset: "USDT (BEP20)" },
-            { user: "Tariq_USDT", amount: "61.90", asset: "USDT (TRC20)" },
-            { user: "Sol_Master", amount: "20.50", asset: "Solana NATIVE" },
-            { user: "Dev_Hasan", amount: "95.00", asset: "USDT (BEP20)" },
-            { user: "Fatima_Fx", amount: "14.30", asset: "USDT (TRC20)" },
-            { user: "Rayhan_Mine", amount: "112.00", asset: "Solana NATIVE" },
-            { user: "Ayesha_Traders", amount: "38.60", asset: "USDT (BEP20)" },
-            { user: "Crypto_Boss99", amount: "77.40", asset: "USDT (TRC20)" },
-            { user: "Tanvir_SOL", amount: "105.20", asset: "Solana NATIVE" },
-            { user: "Jessia_Earn", amount: "22.00", asset: "USDT (TRC20)" },
-            { user: "Mahdi_Crypto", amount: "67.80", asset: "USDT (BEP20)" },
-            { user: "Nusrat_Fx", amount: "89.50", asset: "USDT (TRC20)" },
-            { user: "Sol_Staker", amount: "135.00", asset: "Solana NATIVE" },
-            { user: "Imran_Miner", amount: "18.40", asset: "USDT (BEP20)" },
-            { user: "Tasnim_USDT", amount: "49.00", asset: "USDT (TRC20)" },
-            { user: "Apex_Whale", amount: "210.50", asset: "Solana NATIVE" },
-            { user: "Sakib_Pro", amount: "31.20", asset: "USDT (TRC20)" },
-            { user: "Mitu_Crypto", amount: "58.70", asset: "USDT (BEP20)" },
-            { user: "Emon_Assets", amount: "72.00", asset: "USDT (TRC20)" },
-            { user: "Solana_Guru", amount: "99.90", asset: "Solana NATIVE" },
-            { user: "Sonia_Earn", amount: "15.50", asset: "USDT (BEP20)" },
-            { user: "Rakib_Trader", amount: "83.40", asset: "USDT (TRC20)" },
-            { user: "Nayan_Fx", amount: "44.60", asset: "USDT (TRC20)" },
-            { user: "Crypto_Queen", amount: "128.00", asset: "Solana NATIVE" },
-            { user: "Anik_Mine", amount: "27.50", asset: "USDT (BEP20)" },
-            { user: "Farhana_USDT", amount: "64.20", asset: "USDT (TRC20)" },
-            { user: "Rony_SOL", amount: "118.00", asset: "Solana NATIVE" },
-            { user: "Keya_Crypto", amount: "36.90", asset: "USDT (BEP20)" },
-            { user: "Zahid_Assets", amount: "92.30", asset: "USDT (TRC20)" },
-            { user: "Habib_Fx", amount: "51.00", asset: "USDT (TRC20)" },
-            { user: "Sol_Hunter", amount: "145.60", asset: "Solana NATIVE" },
-            { user: "Lima_EarnPro", amount: "21.40", asset: "USDT (BEP20)" },
-            { user: "Jamil_Crypto", amount: "79.00", asset: "USDT (TRC20)" },
-            { user: "Sujon_Miner", amount: "41.80", asset: "USDT (BEP20)" },
-            { user: "Crypto_Pulse", amount: "160.00", asset: "Solana NATIVE" },
-            { user: "Bristy_USDT", amount: "34.50", asset: "USDT (TRC20)" },
-            { user: "Asif_Assets", amount: "87.20", asset: "USDT (TRC20)" },
-            { user: "Priya_Fx", amount: "53.10", asset: "USDT (BEP20)" },
-            { user: "Sol_Runner", amount: "102.50", asset: "Solana NATIVE" },
-            { user: "Tamim_Earn", amount: "66.00", asset: "USDT (TRC20)" }
+            { user: "Alex_CryptoPro", amount: "45.50", asset: "বিকাশ" },
+            { user: "Josn_Karma", amount: "12.80", asset: "নগদ" },
+            { user: "Solana_King", amount: "88.00", asset: "রকেট" },
+            { user: "Sabbir_Fx", amount: "25.00", asset: "বিকাশ" },
+            { user: "Crypto_Nova", amount: "115.35", asset: "নগদ" },
+            { user: "Arif_Mine", amount: "33.20", asset: "রকেট" },
+            { user: "Zen_Trader", amount: "19.50", asset: "বিকাশ" },
+            { user: "Nipa_Smart", amount: "74.10", asset: "নগদ" },
+            { user: "Luna_Whale", amount: "150.00", asset: "রকেট" },
+            { user: "Rashed_X", amount: "55.00", asset: "বিকাশ" },
+            { user: "Elena_Crypto", amount: "42.15", asset: "নগদ" },
+            { user: "Tariq_USDT", amount: "61.90", asset: "বিকাশ" },
+            { user: "Sol_Master", amount: "20.50", asset: "রকেট" },
+            { user: "Dev_Hasan", amount: "95.00", asset: "নগদ" },
+            { user: "Fatima_Fx", amount: "14.30", asset: "বিকাশ" },
+            { user: "Rayhan_Mine", amount: "112.00", asset: "রকেট" },
+            { user: "Ayesha_Traders", amount: "38.60", asset: "নগদ" },
+            { user: "Crypto_Boss99", amount: "77.40", asset: "বিকাশ" },
+            { user: "Tanvir_SOL", amount: "105.20", asset: "রকেট" },
+            { user: "Jessia_Earn", amount: "22.00", asset: "বিকাশ" },
+            { user: "Mahdi_Crypto", amount: "67.80", asset: "নগদ" },
+            { user: "Nusrat_Fx", amount: "89.50", asset: "বিকাশ" },
+            { user: "Sol_Staker", amount: "135.00", asset: "রকেট" },
+            { user: "Imran_Miner", amount: "18.40", asset: "নগদ" },
+            { user: "Tasnim_USDT", amount: "49.00", asset: "বিকাশ" },
+            { user: "Apex_Whale", amount: "210.50", asset: "রকেট" },
+            { user: "Sakib_Pro", amount: "31.20", asset: "বিকাশ" },
+            { user: "Mitu_Crypto", amount: "58.70", asset: "নগদ" },
+            { user: "Emon_Assets", amount: "72.00", asset: "বিকাশ" },
+            { user: "Solana_Guru", amount: "99.90", asset: "রকেট" },
+            { user: "Sonia_Earn", amount: "15.50", asset: "নগদ" },
+            { user: "Rakib_Trader", amount: "83.40", asset: "বিকাশ" },
+            { user: "Nayan_Fx", amount: "44.60", asset: "বিকাশ" },
+            { user: "Crypto_Queen", amount: "128.00", asset: "রকেট" },
+            { user: "Anik_Mine", amount: "27.50", asset: "নগদ" },
+            { user: "Farhana_USDT", amount: "64.20", asset: "বিকাশ" },
+            { user: "Rony_SOL", amount: "118.00", asset: "রকেট" },
+            { user: "Keya_Crypto", amount: "36.90", asset: "নগদ" },
+            { user: "Zahid_Assets", amount: "92.30", asset: "বিকাশ" },
+            { user: "Habib_Fx", amount: "51.00", asset: "বিকাশ" },
+            { user: "Sol_Hunter", amount: "145.60", asset: "রকেট" },
+            { user: "Lima_EarnPro", amount: "21.40", asset: "নগদ" },
+            { user: "Jamil_Crypto", amount: "79.00", asset: "বিকাশ" },
+            { user: "Sujon_Miner", amount: "41.80", asset: "নগদ" },
+            { user: "Crypto_Pulse", amount: "160.00", asset: "রকেট" },
+            { user: "Bristy_USDT", amount: "34.50", asset: "বিকাশ" },
+            { user: "Asif_Assets", amount: "87.20", asset: "বিকাশ" },
+            { user: "Priya_Fx", amount: "53.10", asset: "নগদ" },
+            { user: "Sol_Runner", amount: "102.50", asset: "রকেট" },
+            { user: "Tamim_Earn", amount: "66.00", asset: "বিকাশ" }
         ];
 
         let currentAlertIndex = 0; 
@@ -885,7 +1043,7 @@
                     const alertBox = document.getElementById('live-alert');
                     
                     if (alertBox) {
-                        document.getElementById('alert-text').innerHTML = `Mainnet Ledger Alert: <b>@${data.user}</b> successfully processed Withdrawal of <b>$${data.amount}</b> via ${data.asset}.`;
+                        document.getElementById('alert-text').innerHTML = `ডেমো পেমেন্ট আপডেট: <b>@${data.user}</b> — <b>৳${(Number(data.amount) * 120).toLocaleString('en-BD',{maximumFractionDigits:2})}</b> (${data.asset})।`;
                         
                         alertBox.classList.remove('hidden');
                         
@@ -905,7 +1063,7 @@
             linkInput.select();
             navigator.clipboard.writeText(linkInput.value);
             tg.HapticFeedback.notificationOccurred('success');
-            alert("Invite link copied!");
+            alert("রেফার লিংক কপি হয়েছে!");
         }
     </script>
 </body>
